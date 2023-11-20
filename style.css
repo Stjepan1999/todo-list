@@ -9,6 +9,7 @@ body {
     font-family: 'Alata', sans-serif;
 }
 
+/*Layout*/
 .grid-container {
     display: grid;
     text-align: center;
@@ -20,7 +21,7 @@ body {
     height: 100%;
 
 }
-
+/*Header*/
 .header {
     display: flex;
     align-items: center;
@@ -28,22 +29,61 @@ body {
     grid-area: header;
     background-color: #f2f3f5;
     border-bottom: 2px solid #2bbd67;
+    font-size: 52px;
 }
-
+/*SVG logo image*/
 .header > img {
     width: 70px;
     height: 70px;
     filter: invert(61%) sepia(46%) saturate(629%) hue-rotate(92deg) brightness(90%) contrast(95%);
 }
-
+/*Change color of "List" text*/
 .header > div > span {
     color: #2bbd67;
 }
 
+/*Sidebar*/
 .sidebar {
     grid-area: sidebar;
-    background-color: #fefcfe
-    ;
+    background-color: #fefcfe;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+.home-heading {
+    font-size: 26px;
+    border-bottom: 2px solid black;
+    width: 100%;
+    text-align: start;
+}
+
+.tile {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    height: 40px;
+}
+
+.tile > img {
+    width: 35px;
+    height: 35px;
+    margin-left: 20px;
+}
+
+.tile:hover {
+    cursor: pointer;
+    background-color: #ececec;
 }
 
 .main {
@@ -57,7 +97,5 @@ body {
 }
 
 
-div {
-    font-size: 50px;
-}
+
 
