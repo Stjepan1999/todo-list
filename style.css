@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+
 html,
 body {
     height: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Alata', sans-serif;
 }
 
 .grid-container {
@@ -19,24 +22,38 @@ body {
 }
 
 .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     grid-area: header;
-    background-color: aqua;
+    background-color: #f2f3f5;
+    border-bottom: 2px solid #2bbd67;
+}
+
+.header > img {
+    width: 70px;
+    height: 70px;
+    filter: invert(61%) sepia(46%) saturate(629%) hue-rotate(92deg) brightness(90%) contrast(95%);
+}
+
+.header > div > span {
+    color: #2bbd67;
 }
 
 .sidebar {
     grid-area: sidebar;
-    background-color: aquamarine
+    background-color: #fefcfe
     ;
 }
 
 .main {
     grid-area: main;
-    background-color: aliceblue;
+    background-color: #ececec;
 }
 
 .footer {
     grid-area: footer;
-    background-color: azure;
+    background-color: #f2f3f5;
 }
 
 
