@@ -196,7 +196,34 @@ body {
     background-color: black;
 }
 
+.projects-list {
+    display: none;
+}
 
+.add-project-form {
+    margin-top: 10px;
+}
+
+.button {
+    border: none;
+    width: 75px;
+    height: 25px;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: white;
+}
+.button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.button.add-project {
+    background-color: #2bbd67;
+}
+
+.button.cancel-project {
+    background-color: red;
+}
 
 .footer {
     grid-area: footer;
