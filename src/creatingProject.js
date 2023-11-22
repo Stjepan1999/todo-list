@@ -23,13 +23,15 @@ function CreateProject(title) {
 }
 
 function createNewProject() {
-    const projectTitle = document.getElementById("project-title").value;
-    const newProject = CreateProject(projectTitle);
-    allProjects.push(newProject);
+    if (validateForm()) {
+        const projectTitle = document.getElementById("project-title").value;
+        const newProject = CreateProject(projectTitle);
+        allProjects.push(newProject);
 
-    document.getElementById("project-title").value = "";
-    closeForm()
-    console.log(allProjects);
+        document.getElementById("project-title").value = "";
+        closeForm()
+        console.log(allProjects);
+    }
 }
 
 function deleteProject(id) {
@@ -47,5 +49,12 @@ function closeForm() {
     addProjectForm.style.display = "none";
 }
 
+function validateForm() {
+    const projectTitle = document.getElementById("project-title").value;
+    if (projectTitle.length < 1) {
+        return false
+    }
+    return true
+}
 
 export { addEventListeners }
