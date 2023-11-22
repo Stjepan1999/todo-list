@@ -196,15 +196,16 @@ body {
     background-color: black;
 }
 
-.projects-list {
-    display: none;
+.project {
+    display: flex;
     align-items: center;
     border-radius: 5px;
     margin-top: 10px;
     font-size: 18px;
     height: 40px;
+    position: relative;
 }
-.projects-list:hover {
+.project:hover {
     cursor: pointer;
     background-color: #ececec;
 }
@@ -234,6 +235,41 @@ body {
 .add-project-form:hover {
     background-color: #f2f3f5;
 }
+.options-buttons {
+    display: none;
+    position: absolute;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+    flex-direction: column;
+    bottom: 37px;
+    right: 15px;
+    background: #f2f3f5;
+    width: 90px;
+    height: 70px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
+
+}
+.options-buttons > button {
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: #f2f3f5;
+    width: 80px;
+    height: 30px;
+
+    
+}
+.options-buttons > button:hover {
+    cursor: pointer;
+    background-color: #ececec;
+    
+}
+.visible {
+    display: flex;
+}
+
 
 #project-title {
     height: 30px;
@@ -260,6 +296,9 @@ body {
 .button.close-form {
     background-color: red;
 }
+
+
+
 
 
 

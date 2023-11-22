@@ -30,7 +30,8 @@ function createNewProject() {
 
         document.getElementById("project-title").value = "";
         closeForm()
-        console.log(allProjects);
+        showProjects();
+        console.log(allProjects)
     }
 }
 
@@ -51,10 +52,49 @@ function closeForm() {
 
 function validateForm() {
     const projectTitle = document.getElementById("project-title").value;
-    if (projectTitle.length < 1) {
+    if (projectTitle.length < 1 || projectTitle.length > 20) {
         return false
     }
     return true
+}
+
+function showProjects() {
+    let projectsListDiv = document.querySelector(".projects-list")
+    let projectsHTML = '';
+    
+
+    for (let i = 0; i < allProjects.length; i++) {
+
+        //const projectDiv = document.createElement("div");
+        //projectDiv.classList.add("project");
+
+        projectsHTML += `
+        <div class="project">
+            <img src="./images/project-icon.png" class="project-icon">
+            <div class="projects-list-title">${allProjects[i].title}</div>
+            <div class="edit-options">
+                <div class="edit-container">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="options-buttons">
+                    <button>Delete</button>
+                    <button>Rename</button>
+                </div>
+            </div>
+        </div>`;
+    }
+    projectsListDiv.innerHTML = projectsHTML
+    showEditOptions()
+}
+
+function showEditOptions() {
+    const optionsButtons = document.querySelector(".options-buttons");
+    const editProjectButton = document.querySelector(".edit-container");
+    editProjectButton.addEventListener("click", () => {
+        optionsButtons.classList.toggle("visible")
+    })
 }
 
 export { addEventListeners }
