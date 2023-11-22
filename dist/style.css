@@ -198,7 +198,28 @@ body {
 
 .projects-list {
     display: none;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 18px;
+    height: 40px;
 }
+.projects-list:hover {
+    cursor: pointer;
+    background-color: #ececec;
+}
+.project-icon {
+    margin-left: 10px;
+    margin-right: 15px;
+    width: 20px;
+    height: auto;
+}
+.projects-list-title {
+    flex: 1;
+    text-align: start;
+}
+
+
 
 .add-project-form {
     display: flex;
@@ -212,10 +233,6 @@ body {
 }
 .add-project-form:hover {
     background-color: #f2f3f5;
-}
-
-.hidden {
-    display: none;
 }
 
 #project-title {
@@ -243,6 +260,9 @@ body {
 .button.close-form {
     background-color: red;
 }
+
+
+
 
 .footer {
     grid-area: footer;
