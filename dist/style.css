@@ -87,7 +87,7 @@ body {
     background-color: #ececec;
 }
 
-.add-project-button {
+.create-form-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,12 +101,12 @@ body {
     height: 35px;
 }
 
-.add-project-button > img {
+.create-form-button > img {
     width: 25px;
     height: 25px;
 }
 
-.add-project-button:hover {
+.create-form-button:hover {
     cursor: pointer;
     background-color: #ececec;
 }
@@ -201,9 +201,28 @@ body {
 }
 
 .add-project-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-top: 10px;
+    border-radius: 5px;
+    height: 100px;
+    display: none;
+}
+.add-project-form:hover {
+    background-color: #f2f3f5;
 }
 
+.hidden {
+    display: none;
+}
+
+#project-title {
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 3px;
+}
 .button {
     border: none;
     width: 75px;
@@ -221,7 +240,7 @@ body {
     background-color: #2bbd67;
 }
 
-.button.cancel-project {
+.button.close-form {
     background-color: red;
 }
 
