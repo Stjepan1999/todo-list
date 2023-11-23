@@ -37,10 +37,8 @@ function createNewProject() {
 
 function deleteProject(id) {
     let index = allProjects.findIndex(project => project.id === id);
-    console.log("Index:", index)
-    allProjects.splice(index);
+    allProjects.splice(index, 1);
     showProjects();
-    console.log("After deleting: ", allProjects)
 }
 
 function createForm() {
@@ -97,6 +95,7 @@ function showProjects() {
         const deleteProjectButton = document.createElement("button");
         deleteProjectButton.classList.add("delete-project-button");
         deleteProjectButton.textContent = "Delete";
+        deleteProjectButton.addEventListener("click", () => deleteProject(allProjects[i].id))
         
         const renameProjectButton = document.createElement("button");
         renameProjectButton.classList.add("rename-project-button");
@@ -121,30 +120,24 @@ function showProjects() {
 
 function showEditOptions(editContainer) {
     const optionsButtons = editContainer.querySelector(".options-buttons");
-    let openOptions = null;
-            
-    // Check if options are already open and close them
-    if (openOptions && openOptions !== optionsButtons) {
-        openOptions.classList.remove("visible")
-    }
 
+    // Close all open options before toggling the current one
+    document.querySelectorAll('.visible').forEach(container => {
+        if (container !== editContainer) {
+            container.classList.remove('visible');
+        }
+    });
     optionsButtons.classList.toggle("visible");
-    openOptions = optionsButtons;
-
-    
 
     // Add a click event listener to the document body
     // If clicked, options become invisible
-    document.body.addEventListener("click", (event) => {
+    document.body.addEventListener("click", () => {
         optionsButtons.classList.remove("visible");
-        event.stopPropagation();
         });
 
     editContainer.addEventListener("click", (event) => {
         event.stopPropagation();
     })
-
-    
 }
 
 function selectProject() {
