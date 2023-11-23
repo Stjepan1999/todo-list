@@ -62,63 +62,100 @@ function validateForm() {
 }
 
 function showProjects() {
-    let projectsListDiv = document.querySelector(".projects-list")
-    let projectsHTML = '';
-    
+    let projectsListDiv = document.querySelector(".projects-list");
+    projectsListDiv.innerHTML = "";
 
     for (let i = 0; i < allProjects.length; i++) {
 
-        //const projectDiv = document.createElement("div");
-        //projectDiv.classList.add("project");
+        const projectDiv = document.createElement("div");
+        projectDiv.classList.add("project");
 
-        projectsHTML += `
-        <div class="project">
-            <img src="./images/project-icon.png" class="project-icon">
-            <div class="projects-list-title">${allProjects[i].title}</div>
-            <div class="edit-options">
-                <div class="edit-container">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-                <div class="options-buttons">
-                    <button class="delete-project-button">Delete</button>
-                    <button class="rename-project-button">Rename</button>
-                </div>
-            </div>
-        </div>`;
+        const projectIcon = document.createElement("img");
+        projectIcon.classList.add("project-icon");
+        projectIcon.src = "./images/project-icon.png"
+        projectDiv.appendChild(projectIcon);
+
+        const projectTitle = document.createElement("div");
+        projectTitle.classList.add("project-list-title");
+        projectTitle.textContent = allProjects[i].title
+        projectDiv.appendChild(projectTitle)
+
+        const editContainer = document.createElement("div");
+        editContainer.classList.add("edit-options");
+
+        const editIcons = document.createElement("div");
+        editIcons.classList.add("edit-icons")
+        for (let j = 0; j < 3; j++) {
+            const dot = document.createElement("span");
+            dot.classList.add("dot");
+            editIcons.appendChild(dot)
+        }
+
+        const optionsButtons = document.createElement("div");
+        optionsButtons.classList.add("options-buttons")
+
+        const deleteProjectButton = document.createElement("button");
+        deleteProjectButton.classList.add("delete-project-button");
+        deleteProjectButton.textContent = "Delete";
+        
+        const renameProjectButton = document.createElement("button");
+        renameProjectButton.classList.add("rename-project-button");
+        renameProjectButton.textContent = "Rename";
+
+        optionsButtons.appendChild(deleteProjectButton)
+        optionsButtons.appendChild(renameProjectButton)
+
+        editContainer.appendChild(editIcons)
+        editContainer.appendChild(optionsButtons)
+
+        projectDiv.appendChild(editContainer)
+
+        projectsListDiv.appendChild(projectDiv)
+
+        editContainer.addEventListener("click", () => showEditOptions(editContainer))
+
+
     }
-    projectsListDiv.innerHTML = projectsHTML
-    showEditOptions()
 }
 
-function showEditOptions() {
-    const editContainers = document.querySelectorAll(".edit-container");
-    // For checking if options are already open, if they are they will be closed
-    let openOptions = null; 
 
-    editContainers.forEach((editContainer) => {
-        editContainer.addEventListener("click", (event) => {
-            const optionsButtons = event.currentTarget.nextElementSibling;
+function showEditOptions(editContainer) {
+    const optionsButtons = editContainer.querySelector(".options-buttons");
+    let openOptions = null;
             
+    // Check if options are already open and close them
+    if (openOptions && openOptions !== optionsButtons) {
+        openOptions.classList.remove("visible")
+    }
 
-            if (openOptions && openOptions !== optionsButtons) {
-                openOptions.classList.remove("visible")
-            }
+    optionsButtons.classList.toggle("visible");
+    openOptions = optionsButtons;
 
-            optionsButtons.classList.toggle("visible");
-            openOptions = optionsButtons;
+    
 
-            event.stopPropagation();
+    // Add a click event listener to the document body
+    // If clicked, options become invisible
+    document.body.addEventListener("click", (event) => {
+        optionsButtons.classList.remove("visible");
+        event.stopPropagation();
         });
-    });
 
-    document.body.addEventListener("click", () => {
-        document.querySelectorAll('.options-buttons').forEach(buttons => {
-            buttons.classList.remove('visible');
-        });
-    });
+    editContainer.addEventListener("click", (event) => {
+        event.stopPropagation();
+    })
+
+    
 }
 
+function selectProject() {
+    const projects = document.querySelectorAll(".project");
+
+    projects.forEach((project, index) => {
+        project.addEventListener("click", () => {
+            project.classList.add("selected")
+            console.log(index)
+        })
+    })
+}
 
 export { addEventListeners }
