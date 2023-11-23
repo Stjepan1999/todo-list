@@ -174,7 +174,7 @@ body {
     padding: 2px;
 }
 
-.edit-container {
+.edit-icons {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -185,7 +185,7 @@ body {
     height: 35px;
 }
 
-.edit-container:hover {
+.edit-icons:hover {
     background-color: #ececec;
 }
 
@@ -215,7 +215,7 @@ body {
     width: 20px;
     height: auto;
 }
-.projects-list-title {
+.project-list-title {
     flex: 1;
     text-align: start;
 }
@@ -270,6 +270,14 @@ body {
     display: flex;
 }
 
+.selected {
+    background-color: rgba(43, 189, 103, 0.3);
+    border-left: 3px solid #2bbd67;
+}
+
+.selected:hover {
+    background-color: rgba(43, 189, 103, 0.6);
+}
 
 #project-title {
     height: 30px;
