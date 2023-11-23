@@ -12,6 +12,7 @@ function addEventListeners() {
     const addProjectButton = document.querySelector(".button.add-project");
     addProjectButton.addEventListener("click", () => createNewProject());
 
+    
 }
 
 function CreateProject(title) {
@@ -27,7 +28,6 @@ function createNewProject() {
         const projectTitle = document.getElementById("project-title").value;
         const newProject = CreateProject(projectTitle);
         allProjects.push(newProject);
-
         document.getElementById("project-title").value = "";
         closeForm()
         showProjects();
@@ -37,7 +37,10 @@ function createNewProject() {
 
 function deleteProject(id) {
     let index = allProjects.findIndex(project => project.id === id);
-    allProjects.splice(index, 1);
+    console.log("Index:", index)
+    allProjects.splice(index);
+    showProjects();
+    console.log("After deleting: ", allProjects)
 }
 
 function createForm() {
@@ -79,8 +82,8 @@ function showProjects() {
                     <span class="dot"></span>
                 </div>
                 <div class="options-buttons">
-                    <button>Delete</button>
-                    <button>Rename</button>
+                    <button class="delete-project-button">Delete</button>
+                    <button class="rename-project-button">Rename</button>
                 </div>
             </div>
         </div>`;
@@ -90,11 +93,32 @@ function showProjects() {
 }
 
 function showEditOptions() {
-    const optionsButtons = document.querySelector(".options-buttons");
-    const editProjectButton = document.querySelector(".edit-container");
-    editProjectButton.addEventListener("click", () => {
-        optionsButtons.classList.toggle("visible")
-    })
+    const editContainers = document.querySelectorAll(".edit-container");
+    // For checking if options are already open, if they are they will be closed
+    let openOptions = null; 
+
+    editContainers.forEach((editContainer) => {
+        editContainer.addEventListener("click", (event) => {
+            const optionsButtons = event.currentTarget.nextElementSibling;
+            
+
+            if (openOptions && openOptions !== optionsButtons) {
+                openOptions.classList.remove("visible")
+            }
+
+            optionsButtons.classList.toggle("visible");
+            openOptions = optionsButtons;
+
+            event.stopPropagation();
+        });
+    });
+
+    document.body.addEventListener("click", () => {
+        document.querySelectorAll('.options-buttons').forEach(buttons => {
+            buttons.classList.remove('visible');
+        });
+    });
 }
+
 
 export { addEventListeners }
