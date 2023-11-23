@@ -31,7 +31,6 @@ function createNewProject() {
         document.getElementById("project-title").value = "";
         closeForm()
         showProjects();
-        console.log(allProjects)
     }
 }
 
@@ -67,6 +66,7 @@ function showProjects() {
 
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project");
+        projectDiv.addEventListener("click", () => selectProject(projectDiv))
 
         const projectIcon = document.createElement("img");
         projectIcon.classList.add("project-icon");
@@ -140,15 +140,13 @@ function showEditOptions(editContainer) {
     })
 }
 
-function selectProject() {
-    const projects = document.querySelectorAll(".project");
-
-    projects.forEach((project, index) => {
-        project.addEventListener("click", () => {
-            project.classList.add("selected")
-            console.log(index)
-        })
+function selectProject(project) {
+    document.querySelectorAll(".selected").forEach(container => {
+        if(container !== project) {
+            container.classList.remove("selected")
+        }
     })
+    project.classList.add("selected")
 }
 
 export { addEventListeners }
