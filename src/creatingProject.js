@@ -66,7 +66,7 @@ function showProjects() {
 
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project");
-        projectDiv.addEventListener("click", () => selectProject(projectDiv))
+        projectDiv.addEventListener("click", () => selectProject(projectDiv, allProjects[i].title))
 
         const projectIcon = document.createElement("img");
         projectIcon.classList.add("project-icon");
@@ -100,6 +100,7 @@ function showProjects() {
         const renameProjectButton = document.createElement("button");
         renameProjectButton.classList.add("rename-project-button");
         renameProjectButton.textContent = "Rename";
+        renameProjectButton.addEventListener("click", () => renameProject())
 
         optionsButtons.appendChild(deleteProjectButton)
         optionsButtons.appendChild(renameProjectButton)
@@ -140,13 +141,16 @@ function showEditOptions(editContainer) {
     })
 }
 
-function selectProject(project) {
+function selectProject(project, projectTitle) {
     document.querySelectorAll(".selected").forEach(container => {
         if(container !== project) {
             container.classList.remove("selected")
         }
     })
     project.classList.add("selected")
+
+    const title = document.querySelector(".title");
+    title.textContent = projectTitle
 }
 
 export { addEventListeners }
