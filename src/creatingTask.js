@@ -8,6 +8,30 @@ function createTaskEvents () {
 
     const closeFormButton = document.querySelector(".button.close-task-form");
     closeFormButton.addEventListener("click", () => closeForm())
+
+    const addTaskButton = document.querySelector(".button.add-task");
+    addTaskButton.addEventListener("click", () => createNewTask())
+}
+
+function CreateTask(title, description, date) {
+    return {
+        id: taskID++,
+        title,
+        description,
+        date
+    }
+}
+
+function createNewTask() {
+    const taskTitle = document.getElementById("task-title");
+    const taskDescription = document.getElementById("task-description");
+    const taskDate = document.getElementById("task-date");
+
+    const newTask = CreateTask(taskTitle.value, taskDescription.value, taskDate.value);
+    allTasks.push(newTask);
+    taskTitle.value = "";
+    taskDescription.value = "";
+    taskDate.value = "";    
 }
 
 function showForm() {
