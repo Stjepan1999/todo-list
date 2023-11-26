@@ -73,11 +73,17 @@
                 </div>
             </div>
             <div class="add-task-form">
-                <form>
-                    <input type="text" id="task-title" placeholder="Task name" required>
-                    <input type="text" id="task-description" placeholder="Description (optional)">
+                <form class="task-form">
+                    <label for="task-title">Title: </label>
+                    <input type="text" id="task-title" placeholder="What to do?" required>
+
+                    <label for="task-description">Details (Optional):</label>
+                    <textarea id="task-description" rows="3" placeholder="How to do that?"></textarea>
+
+                    <label for="task-date">Date: </label>
+                    <input type="date" id="task-date">
                 </form>
-                <div>
+                <div class="task-buttons">
                     <button class="button add-project">Add</button>
                     <button class="button close-form">Cancel</button>
                 </div>
