@@ -214,18 +214,20 @@ body {
 .add-task-form {
     border: 1px solid black;
     height: 250px;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 10px;
     border-radius: 5px;
     background: #ececec;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 15px;
+    display: none;
 }
 
 .task-form > textarea {
     resize: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 .task-form {
@@ -237,6 +239,14 @@ body {
 
 .task-form > label {
     align-self: flex-start;
+}
+
+.task-form > input {
+    border-radius: 5px;
+    height: 30px;
+    border: 2px solid black;
+    font-size: 16px;
+
 }
 
 
@@ -342,11 +352,13 @@ body {
     cursor: pointer;
 }
 
-.button.add-project {
+.button.add-project,
+.button.add-task {
     background-color: #2bbd67;
 }
 
-.button.close-form {
+.button.close-form,
+.button.close-task-form {
     background-color: red;
 }
 
