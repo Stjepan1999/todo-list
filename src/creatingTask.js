@@ -1,6 +1,6 @@
-let taskID = 0;
-let allTasks = [];
+import { allProjects } from "./creatingProject";
 
+let taskID = 0;
 
 function createTaskEvents () {
     const showFormButton = document.querySelector(".create-task-button")
@@ -8,10 +8,8 @@ function createTaskEvents () {
 
     const closeFormButton = document.querySelector(".button.close-task-form");
     closeFormButton.addEventListener("click", () => closeForm())
-
-    const addTaskButton = document.querySelector(".button.add-task");
-    addTaskButton.addEventListener("click", () => createNewTask())
 }
+
 
 function CreateTask(title, description, date) {
     return {
@@ -22,18 +20,31 @@ function CreateTask(title, description, date) {
     }
 }
 
-function createNewTask() {
-    const taskTitle = document.getElementById("task-title");
-    const taskDescription = document.getElementById("task-description");
-    const taskDate = document.getElementById("task-date");
+function createNewTask(projectTasks) {
+    const taskTitle = document.getElementById("task-title").value;
+    const taskDescription = document.getElementById("task-description").value;
+    const taskDate = document.getElementById("task-date").value;
 
-    const newTask = CreateTask(taskTitle.value, taskDescription.value, taskDate.value);
-    allTasks.push(newTask);
+    const newTask = CreateTask(taskTitle, taskDescription, taskDate);
+    projectTasks.push(newTask)
     //taskTitle.value = "";
     //taskDescription.value = "";
     //taskDate.value = "";    
     closeForm();
-    showTasks();
+    showTasks(projectTasks)
+}
+
+function createButton(project) {
+    const formButtons = document.querySelector(".task-buttons");
+    formButtons.innerHTML = "";
+
+    const addTaskButton = document.createElement("button");
+    addTaskButton.classList.add("button")
+    addTaskButton.classList.add("add-task")
+    addTaskButton.addEventListener("click", () => createNewTask(project))
+
+    formButtons.appendChild(addTaskButton)
+    
 }
 
 function showForm() {
@@ -44,13 +55,18 @@ function showForm() {
 function closeForm() {
     const taskForm = document.querySelector(".add-task-form");
     taskForm.style.display = "none"
+
+    //document.getElementById("task-title").value = "";
+    //document.getElementById("task-description").value = "";
+    //document.getElementById("task-date").value = "";
 }
 
-function showTasks() {
+function showTasks(projectTasks) {
     const tasksContainer = document.querySelector(".tasks-container");
     tasksContainer.innerHTML = ""
+    
+    for (let i = 0; i < projectTasks.length; i++) {
 
-    for (let i = 0; i < allTasks.length; i++) {
         const taskDiv = document.createElement("div");
         taskDiv.classList.add("task");
 
@@ -62,15 +78,15 @@ function showTasks() {
 
         const taskTitle = document.createElement("div");
         taskTitle.classList.add("task-title");
-        taskTitle.textContent = allTasks[i].title;
+        taskTitle.textContent = projectTasks[i].title;
 
         const taskDescription = document.createElement("div");
         taskDescription.classList.add("task-description");
-        taskDescription.textContent = allTasks[i].description;
+        taskDescription.textContent = projectTasks[i].description;
 
         const taskDate = document.createElement("div");
         taskDate.classList.add("date");
-        taskDate.textContent = allTasks[i].date;
+        taskDate.textContent = projectTasks[i].date;
 
         const importantStar = document.createElement("div");
         importantStar.classList.add("important-star");
@@ -103,10 +119,12 @@ function showTasks() {
         taskDiv.appendChild(importantStar);
         taskDiv.appendChild(editIcons);
         tasksContainer.appendChild(taskDiv);
-
     }
+    
+    createButton(projectTasks)
 }
 
 
 
-export { createTaskEvents }
+
+export { createTaskEvents, showTasks, createButton }

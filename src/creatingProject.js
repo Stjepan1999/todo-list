@@ -1,3 +1,5 @@
+import { createButton, showTasks } from './creatingTask'
+
 let projectID = 0;
 let allProjects = [];
 
@@ -28,7 +30,6 @@ function createNewProject() {
         const projectTitle = document.getElementById("project-title").value;
         const newProject = CreateProject(projectTitle);
         allProjects.push(newProject);
-        document.getElementById("project-title").value = "";
         closeForm()
         showProjects();
     }
@@ -48,6 +49,7 @@ function createForm() {
 function closeForm() {
     const addProjectForm = document.querySelector(".add-project-form");
     addProjectForm.style.display = "none";
+    document.getElementById("project-title").value = "";
 }
 
 function validateForm() {
@@ -66,7 +68,7 @@ function showProjects() {
 
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project");
-        projectDiv.addEventListener("click", () => selectProject(projectDiv, allProjects[i].title))
+        projectDiv.addEventListener("click", () => selectProject(projectDiv, allProjects[i]))
 
         const projectIcon = document.createElement("img");
         projectIcon.classList.add("project-icon");
@@ -141,16 +143,20 @@ function showEditOptions(editContainer) {
     })
 }
 
-function selectProject(project, projectTitle) {
+function selectProject(projectDiv, project) {
     document.querySelectorAll(".selected").forEach(container => {
-        if(container !== project) {
+        if(container !== projectDiv) {
             container.classList.remove("selected")
         }
     })
-    project.classList.add("selected")
+    projectDiv.classList.add("selected")
 
     const title = document.querySelector(".title");
-    title.textContent = projectTitle
+    title.textContent = project.title
+    console.log("project in selectProject:", project)
+    console.log("projectTasks in selectProject: ", project.tasks)
+
+    showTasks(project.tasks)
 }
 
-export { addEventListeners }
+export { addEventListeners, allProjects }
