@@ -10,7 +10,7 @@ function createTaskEvents () {
     closeFormButton.addEventListener("click", () => closeForm());
 
     const addTaskButton = document.querySelector(".button.add-task");
-    addTaskButton.addEventListener("click", () => createNewTask())
+    addTaskButton.addEventListener("click", createNewTask)
 }
 
 
@@ -30,13 +30,10 @@ function createNewTask() {
 
     const projectIndex = findSelectedProject()
     const project = allProjects[projectIndex].tasks
-    console.log("project index:", projectIndex)
-    console.log("project:", project)
+
     const newTask = CreateTask(taskTitle, taskDescription, taskDate);
     project.push(newTask)
-    //taskTitle.value = "";
-    //taskDescription.value = "";
-    //taskDate.value = "";    
+  
     closeForm();
     showTasks(project)
 }
@@ -50,9 +47,9 @@ function closeForm() {
     const taskForm = document.querySelector(".add-task-form");
     taskForm.style.display = "none"
 
-    //document.getElementById("task-title").value = "";
-    //document.getElementById("task-description").value = "";
-    //document.getElementById("task-date").value = "";
+    document.getElementById("task-title").value = "";
+    document.getElementById("task-description").value = "";
+    document.getElementById("task-date").value = "";
 }
 
 function showTasks(projectTasks) {
