@@ -7,7 +7,10 @@ function createTaskEvents () {
     showFormButton.addEventListener("click", () => showForm())
 
     const closeFormButton = document.querySelector(".button.close-task-form");
-    closeFormButton.addEventListener("click", () => closeForm())
+    closeFormButton.addEventListener("click", () => closeForm());
+
+    const addTaskButton = document.querySelector(".button.add-task");
+    addTaskButton.addEventListener("click", () => createNewTask())
 }
 
 
@@ -20,31 +23,22 @@ function CreateTask(title, description, date) {
     }
 }
 
-function createNewTask(projectTasks) {
+function createNewTask() {
     const taskTitle = document.getElementById("task-title").value;
     const taskDescription = document.getElementById("task-description").value;
     const taskDate = document.getElementById("task-date").value;
 
+    const projectIndex = findSelectedProject()
+    const project = allProjects[projectIndex].tasks
+    console.log("project index:", projectIndex)
+    console.log("project:", project)
     const newTask = CreateTask(taskTitle, taskDescription, taskDate);
-    projectTasks.push(newTask)
+    project.push(newTask)
     //taskTitle.value = "";
     //taskDescription.value = "";
     //taskDate.value = "";    
     closeForm();
-    showTasks(projectTasks)
-}
-
-function createButton(project) {
-    const formButtons = document.querySelector(".task-buttons");
-    formButtons.innerHTML = "";
-
-    const addTaskButton = document.createElement("button");
-    addTaskButton.classList.add("button")
-    addTaskButton.classList.add("add-task")
-    addTaskButton.addEventListener("click", () => createNewTask(project))
-
-    formButtons.appendChild(addTaskButton)
-    
+    showTasks(project)
 }
 
 function showForm() {
@@ -120,11 +114,12 @@ function showTasks(projectTasks) {
         taskDiv.appendChild(editIcons);
         tasksContainer.appendChild(taskDiv);
     }
-    
-    createButton(projectTasks)
+}
+
+function findSelectedProject() {
+    const selected = document.querySelector(".selected");
+    return selected.dataset.project
 }
 
 
-
-
-export { createTaskEvents, showTasks, createButton }
+export { createTaskEvents, showTasks }

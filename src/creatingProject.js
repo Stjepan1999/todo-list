@@ -1,4 +1,4 @@
-import { createButton, showTasks } from './creatingTask'
+import { showTasks } from './creatingTask'
 
 let projectID = 0;
 let allProjects = [];
@@ -68,6 +68,7 @@ function showProjects() {
 
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project");
+        projectDiv.dataset.project = i;
         projectDiv.addEventListener("click", () => selectProject(projectDiv, allProjects[i]))
 
         const projectIcon = document.createElement("img");
@@ -115,8 +116,6 @@ function showProjects() {
         projectsListDiv.appendChild(projectDiv)
 
         editContainer.addEventListener("click", () => showEditOptions(editContainer))
-
-
     }
 }
 
@@ -153,10 +152,9 @@ function selectProject(projectDiv, project) {
 
     const title = document.querySelector(".title");
     title.textContent = project.title
-    console.log("project in selectProject:", project)
-    console.log("projectTasks in selectProject: ", project.tasks)
-
     showTasks(project.tasks)
+
 }
 
-export { addEventListeners, allProjects }
+
+export { addEventListeners, allProjects}
