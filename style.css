@@ -188,6 +188,10 @@ body {
     padding: 2px;
 }
 
+.important-star {
+    font-size: 20px;
+}
+
 .edit-icons {
     display: flex;
     flex-direction: column;
@@ -199,9 +203,6 @@ body {
     height: 35px;
 }
 
-.edit-icons:hover {
-    background-color: #ececec;
-}
 
 .dot {
     border-radius: 50%;
@@ -304,7 +305,6 @@ body {
     height: 70px;
     border-radius: 5px;
     box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
-
 }
 .options-buttons > button {
     border: none;
@@ -321,6 +321,8 @@ body {
     background-color: #ececec;
     
 }
+
+
 .visible {
     display: flex;
 }
