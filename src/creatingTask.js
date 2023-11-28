@@ -60,6 +60,7 @@ function closeForm() {
 function showTasks(projectTasks) {
     const tasksContainer = document.querySelector(".tasks-container");
     tasksContainer.innerHTML = ""
+    console.log("project tasks", projectTasks)
     
     for (let i = 0; i < projectTasks.length; i++) {
 
@@ -86,7 +87,8 @@ function showTasks(projectTasks) {
 
         const importantStar = document.createElement("div");
         importantStar.classList.add("important-star");
-        importantStar.textContent = "Star"
+        importantStar.innerHTML = "&#9734;"
+        importantStar.addEventListener("click", () => addToImportant(importantStar))
 
         const editContainer = document.createElement("div");
         editContainer.classList.add("edit-options");
@@ -125,9 +127,12 @@ function showTasks(projectTasks) {
         taskDiv.appendChild(importantStar);
         taskDiv.appendChild(editContainer);
         tasksContainer.appendChild(taskDiv);
-
-
     }
+}
+
+function addToImportant(importantStar) {
+    importantStar.innerHTML = "&#9733;"
+    importantStar.style.color = "yellow"
 }
 
 function showEditOptions(editContainer) {

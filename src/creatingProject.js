@@ -129,7 +129,6 @@ function showEditOptions(editContainer) {
             container.classList.remove('visible');
         }
     });
-    optionsButtons.classList.toggle("visible");
 
     // Add a click event listener to the document body
     // If clicked, options become invisible
@@ -140,6 +139,9 @@ function showEditOptions(editContainer) {
     editContainer.addEventListener("click", (event) => {
         event.stopPropagation();
     })
+
+    optionsButtons.classList.toggle("visible");
+
 }
 
 function selectProject(projectDiv, project) {
@@ -152,9 +154,11 @@ function selectProject(projectDiv, project) {
 
     const title = document.querySelector(".title");
     title.textContent = project.title
+
     showTasks(project.tasks)
 
+    const showFormButton = document.querySelector(".create-task-button");
+    showFormButton.style.display = "flex"
 }
-
 
 export { addEventListeners, allProjects}
