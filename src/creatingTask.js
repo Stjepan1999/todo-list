@@ -19,7 +19,8 @@ function CreateTask(title, description, date) {
         id: taskID++,
         title,
         description,
-        date
+        date,
+        important: "no"
     }
 }
 
@@ -86,8 +87,13 @@ function showTasks(projectTasks) {
 
         const importantStar = document.createElement("div");
         importantStar.classList.add("important-star");
-        importantStar.innerHTML = "&#9734;"
-        importantStar.addEventListener("click", () => addToImportant(importantStar))
+        if (projectTasks[i].important === "yes") {
+            importantStar.innerHTML = "&#9733;";
+            importantStar.style.color = "yellow"
+        } else {
+            importantStar.innerHTML = "&#9734;"
+        }
+        importantStar.addEventListener("click", () => addToImportant(projectTasks[i], importantStar))
 
         const editContainer = document.createElement("div");
         editContainer.classList.add("edit-options");
@@ -129,9 +135,16 @@ function showTasks(projectTasks) {
     }
 }
 
-function addToImportant(importantStar) {
-    importantStar.innerHTML = "&#9733;"
-    importantStar.style.color = "yellow"
+function addToImportant(task, importantStar) {
+    if (task.important === "no") {
+        task.important = "yes"
+        importantStar.innerHTML = "&#9733;"
+        importantStar.style.color = "yellow"
+    } else {
+        task.important = "no";
+        importantStar.innerHTML = "&#9734;"
+        importantStar.style.color = "black"
+    }
 }
 
 function showEditOptions(editContainer) {
