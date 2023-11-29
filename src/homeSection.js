@@ -12,6 +12,8 @@ function showHomeSectionTile() {
     const thisWeekTasks = document.getElementById("this-week");
     thisWeekTasks.addEventListener("click", showThisWeekTasks);
 
+    const importantTasks = document.getElementById("important");
+    importantTasks.addEventListener("click", showImportantTasks)
 }
 
 function showAllTasks() {
@@ -71,6 +73,22 @@ function showThisWeekTasks() {
         })
     }
     showTasks(thisWeekTasks)
+}
+
+function showImportantTasks() {
+    showTitle("Important");
+
+    let importantTasks = [];
+    if (allProjects.length > 0) {
+        allProjects.forEach((project) => {
+            project.tasks.forEach((task) => {
+                if (task.important === "yes") {
+                    importantTasks.push(task)
+                }
+            })
+        })
+    }
+    showTasks(importantTasks)
 }
 
 function showTitle(titleName) {
