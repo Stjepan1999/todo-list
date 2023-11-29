@@ -104,6 +104,7 @@ body {
     background-color: #fefcfe;
 }
 .create-task-button {
+    display: none;
     background-color: #ececec;
     margin-top: 20px;
 }
