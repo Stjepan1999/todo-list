@@ -83,13 +83,17 @@ function showTasks(projectTasks) {
 
         const taskDate = document.createElement("div");
         taskDate.classList.add("date");
-        taskDate.textContent = projectTasks[i].date;
+        if (projectTasks[i].date === "") {
+            taskDate.textContent = "No Due Date"
+        } else {
+            taskDate.textContent = projectTasks[i].date;
+        }
 
         const importantStar = document.createElement("div");
         importantStar.classList.add("important-star");
         if (projectTasks[i].important === "yes") {
             importantStar.innerHTML = "&#9733;";
-            importantStar.style.color = "yellow"
+            importantStar.style.color = "#fec811"
         } else {
             importantStar.innerHTML = "&#9734;"
         }
@@ -139,7 +143,7 @@ function addToImportant(task, importantStar) {
     if (task.important === "no") {
         task.important = "yes"
         importantStar.innerHTML = "&#9733;"
-        importantStar.style.color = "yellow"
+        importantStar.style.color = "#fec811"
     } else {
         task.important = "no";
         importantStar.innerHTML = "&#9734;"
