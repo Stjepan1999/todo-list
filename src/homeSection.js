@@ -1,22 +1,21 @@
 import { showTasks } from "./creatingTask";
 import { allProjects } from "./creatingProject";
-import { format, addDays } from 'date-fns';
+import { format, add, addDays } from 'date-fns';
 
 function showHomeSectionTile() {
     const allTasks = document.getElementById("all-tasks");
     allTasks.addEventListener("click", showAllTasks);
 
     const todayTasks = document.getElementById("today");
-    todayTasks.addEventListener("click", showTodayTasks)
+    todayTasks.addEventListener("click", showTodayTasks);
+
+    const thisWeekTasks = document.getElementById("this-week");
+    thisWeekTasks.addEventListener("click", showThisWeekTasks);
+
 }
 
 function showAllTasks() {
-    const showFormButton = document.querySelector(".create-task-button");
-    showFormButton.style.display = "none"
-
-    const title = document.querySelector(".title");
-    title.textContent = "All Tasks"
-
+    showTitle("All Tasks")
     let allTasks = []
 
     if (allProjects.length > 0) {
@@ -31,12 +30,7 @@ function showAllTasks() {
 
 
 function showTodayTasks() {
-    const showFormButton = document.querySelector(".create-task-button");
-    showFormButton.style.display = "none"
-
-    const title = document.querySelector(".title");
-    title.textContent = "Today";
-
+    showTitle("Today")
     let todayTasks = [];
     const rawDate = new Date();
     const todayDate = format(rawDate, 'yyyy-MM-dd')
@@ -52,6 +46,39 @@ function showTodayTasks() {
         })
     }
     showTasks(todayTasks)
+}
+
+function showThisWeekTasks() {
+    showTitle("Next 7 Days");
+
+    let thisWeekTasks = [];
+
+    //Array for storing this week dates
+    let thisWeekDates = [];
+    const todayDate = new Date();
+    for (let i = 0; i < 7; i++) {
+        const nextDate = addDays(todayDate, i);
+        thisWeekDates.push(format(nextDate, 'yyyy-MM-dd'))
+    }
+
+    if (allProjects.length > 0) {
+        allProjects.forEach((project) => {
+            project.tasks.forEach((task) => {
+                if (thisWeekDates.includes(task.date)) {
+                    thisWeekTasks.push(task)
+                }
+            })
+        })
+    }
+    showTasks(thisWeekTasks)
+}
+
+function showTitle(titleName) {
+    const showFormButton = document.querySelector(".create-task-button");
+    showFormButton.style.display = "none"
+
+    const title = document.querySelector(".title");
+    title.textContent = titleName;
 }
 
 export { showHomeSectionTile }
