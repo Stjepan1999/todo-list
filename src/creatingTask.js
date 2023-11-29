@@ -60,7 +60,6 @@ function closeForm() {
 function showTasks(projectTasks) {
     const tasksContainer = document.querySelector(".tasks-container");
     tasksContainer.innerHTML = ""
-    console.log("project tasks", projectTasks)
     
     for (let i = 0; i < projectTasks.length; i++) {
 
