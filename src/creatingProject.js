@@ -6,7 +6,7 @@ let allProjects = JSON.parse(localStorage.getItem("allProjects")) || [];
 console.log(allProjects)
 
 function addEventListeners() {
-    const showFormButton = document.querySelector(".create-form-button");
+    const showFormButton = document.querySelector(".create-project-button");
     showFormButton.addEventListener("click", () => createForm());
 
     const closeFormButton = document.querySelector(".button.close-form");

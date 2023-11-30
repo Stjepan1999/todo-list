@@ -1,6 +1,6 @@
 import { showTasks } from "./creatingTask";
 import { allProjects } from "./creatingProject";
-import { format, add, addDays } from 'date-fns';
+import { format, addDays } from 'date-fns';
 
 function showHomeSectionTile() {
     const allTasks = document.getElementById("all-tasks");
@@ -13,7 +13,9 @@ function showHomeSectionTile() {
     thisWeekTasks.addEventListener("click", showThisWeekTasks);
 
     const importantTasks = document.getElementById("important");
-    importantTasks.addEventListener("click", showImportantTasks)
+    importantTasks.addEventListener("click", showImportantTasks);
+
+    showAllTasks()
 }
 
 function showAllTasks() {

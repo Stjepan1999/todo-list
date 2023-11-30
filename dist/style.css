@@ -66,6 +66,7 @@ body {
     text-align: start;
 }
 
+/*Sidebar tiles*/
 .tile {
     display: flex;
     align-items: center;
@@ -87,7 +88,9 @@ body {
     background-color: #ececec;
 }
 
-.create-form-button,
+
+/*Buttons for creating projects and tasks*/
+.create-project-button,
 .create-task-button {
     display: flex;
     align-items: center;
@@ -100,7 +103,7 @@ body {
     width: 100%;
     height: 35px;
 }
-.create-form-button {
+.create-project-button {
     background-color: #fefcfe;
 }
 .create-task-button {
@@ -109,13 +112,13 @@ body {
     margin-top: 20px;
 }
 
-.create-form-button > img,
+.create-project-button > img,
 .create-task-button > img {
     width: 25px;
     height: 25px;
 }
 
-.create-form-button:hover {
+.create-project-button:hover {
     cursor: pointer;
     background-color: #ececec;
 }
@@ -203,8 +206,6 @@ body {
     width: 25px;
     height: 35px;
 }
-
-
 .dot {
     border-radius: 50%;
     width: 5px;
@@ -292,6 +293,7 @@ body {
 .add-project-form:hover {
     background-color: #f2f3f5;
 }
+/*Edit containers*/
 .options-buttons {
     display: none;
     position: absolute;
@@ -323,25 +325,26 @@ body {
     
 }
 
-
 .visible {
     display: flex;
 }
-
+/*Selected project*/
 .selected {
     background-color: rgba(43, 189, 103, 0.3);
     border-left: 3px solid #2bbd67;
 }
-
 .selected:hover {
     background-color: rgba(43, 189, 103, 0.6);
 }
 
-#project-title {
+
+.project-title-input {
     height: 30px;
     border: 2px solid black;
     border-radius: 3px;
 }
+
+/*Buttons for Add and Cancel in forms*/
 .button {
     border: none;
     width: 75px;
@@ -354,12 +357,10 @@ body {
     opacity: 0.8;
     cursor: pointer;
 }
-
 .button.add-project,
 .button.add-task {
     background-color: #2bbd67;
 }
-
 .button.close-form,
 .button.close-task-form {
     background-color: red;

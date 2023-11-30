@@ -181,5 +181,4 @@ function findSelectedProject() {
     return selected.dataset.project
 }
 
-
 export { createTaskEvents, showTasks }

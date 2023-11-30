@@ -11,6 +11,7 @@ function deleteProject(id) {
 
 function showEditOptions(editContainer) {
     const optionsButtons = editContainer.querySelector(".options-buttons");
+    optionsButtons.classList.toggle("visible");
 
 
     // Close all open options before toggling the current one
