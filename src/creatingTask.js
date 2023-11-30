@@ -1,4 +1,4 @@
-import { allProjects } from "./creatingProject";
+import { allProjects, saveToLocalStorage } from "./creatingProject";
 
 let taskID = 0;
 
@@ -33,8 +33,9 @@ function createNewTask() {
     const project = allProjects[projectIndex].tasks
 
     const newTask = CreateTask(taskTitle, taskDescription, taskDate);
-    project.push(newTask)
-  
+    project.push(newTask);
+
+    saveToLocalStorage();
     closeForm();
     showTasks(project)
 }
@@ -42,6 +43,7 @@ function createNewTask() {
 function deleteTask(project, index) {
     project.splice(index, 1);
     showTasks(project)
+    saveToLocalStorage();
 }
 
 function showForm() {
@@ -149,6 +151,7 @@ function addToImportant(task, importantStar) {
         importantStar.innerHTML = "&#9734;"
         importantStar.style.color = "black"
     }
+    saveToLocalStorage();
 }
 
 function showEditOptions(editContainer) {
