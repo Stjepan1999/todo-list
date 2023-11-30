@@ -3,7 +3,6 @@ import { deleteProject, showEditOptions } from './editingProject';
 
 let projectID = 0;
 const allProjects = JSON.parse(localStorage.getItem('allProjects')) || [];
-console.log(allProjects);
 
 function addEventListeners() {
   const showFormButton = document.querySelector('.create-project-button');
@@ -69,7 +68,9 @@ function showProjects() {
     const projectDiv = document.createElement('div');
     projectDiv.classList.add('project');
     projectDiv.dataset.project = i;
-    projectDiv.addEventListener('click', () => selectProject(projectDiv, allProjects[i]));
+    projectDiv.addEventListener('click', () =>
+      selectProject(projectDiv, allProjects[i]),
+    );
 
     const projectIcon = document.createElement('img');
     projectIcon.classList.add('project-icon');
@@ -98,7 +99,9 @@ function showProjects() {
     const deleteProjectButton = document.createElement('button');
     deleteProjectButton.classList.add('delete-project-button');
     deleteProjectButton.textContent = 'Delete';
-    deleteProjectButton.addEventListener('click', () => deleteProject(allProjects[i].id));
+    deleteProjectButton.addEventListener('click', () =>
+      deleteProject(allProjects[i].id),
+    );
 
     const renameProjectButton = document.createElement('button');
     renameProjectButton.classList.add('rename-project-button');
@@ -115,7 +118,9 @@ function showProjects() {
 
     projectsListDiv.appendChild(projectDiv);
 
-    editContainer.addEventListener('click', () => showEditOptions(editContainer));
+    editContainer.addEventListener('click', () =>
+      showEditOptions(editContainer),
+    );
   }
 }
 
@@ -136,6 +141,4 @@ function selectProject(projectDiv, project) {
   showFormButton.style.display = 'flex';
 }
 
-export {
-  addEventListeners, allProjects, showProjects, saveToLocalStorage,
-};
+export { addEventListeners, allProjects, showProjects, saveToLocalStorage };

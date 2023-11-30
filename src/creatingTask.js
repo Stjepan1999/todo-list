@@ -97,11 +97,15 @@ function showTasks(projectTasks) {
     } else {
       importantStar.innerHTML = '&#9734;';
     }
-    importantStar.addEventListener('click', () => addToImportant(projectTasks[i], importantStar));
+    importantStar.addEventListener('click', () =>
+      addToImportant(projectTasks[i], importantStar),
+    );
 
     const editContainer = document.createElement('div');
     editContainer.classList.add('edit-options');
-    editContainer.addEventListener('click', () => showEditOptions(editContainer));
+    editContainer.addEventListener('click', () =>
+      showEditOptions(editContainer),
+    );
 
     const editIcons = document.createElement('div');
     editIcons.classList.add('edit-icons');
@@ -117,7 +121,9 @@ function showTasks(projectTasks) {
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.classList.add('delete-project-button');
     deleteTaskButton.textContent = 'Delete';
-    deleteTaskButton.addEventListener('click', () => deleteTask(projectTasks, i));
+    deleteTaskButton.addEventListener('click', () =>
+      deleteTask(projectTasks, i),
+    );
 
     const editTaskButton = document.createElement('button');
     editTaskButton.classList.add('rename-project-button');
