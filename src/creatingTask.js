@@ -20,7 +20,7 @@ function CreateTask(title, description, date) {
         title,
         description,
         date,
-        important: "no"
+        important: false
     }
 }
 
@@ -91,7 +91,7 @@ function showTasks(projectTasks) {
 
         const importantStar = document.createElement("div");
         importantStar.classList.add("important-star");
-        if (projectTasks[i].important === "yes") {
+        if (projectTasks[i].important) {
             importantStar.innerHTML = "&#9733;";
             importantStar.style.color = "#fec811"
         } else {
@@ -140,12 +140,12 @@ function showTasks(projectTasks) {
 }
 
 function addToImportant(task, importantStar) {
-    if (task.important === "no") {
-        task.important = "yes"
+    if (!task.important) {
+        task.important = true
         importantStar.innerHTML = "&#9733;"
         importantStar.style.color = "#fec811"
     } else {
-        task.important = "no";
+        task.important = false;
         importantStar.innerHTML = "&#9734;"
         importantStar.style.color = "black"
     }

@@ -82,7 +82,7 @@ function showImportantTasks() {
     if (allProjects.length > 0) {
         allProjects.forEach((project) => {
             project.tasks.forEach((task) => {
-                if (task.important === "yes") {
+                if (task.important) {
                     importantTasks.push(task)
                 }
             })
@@ -99,4 +99,4 @@ function showTitle(titleName) {
     title.textContent = titleName;
 }
 
-export { showHomeSectionTile }
+export { showHomeSectionTile, showAllTasks }

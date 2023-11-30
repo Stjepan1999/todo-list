@@ -1,8 +1,9 @@
 import { showTasks } from './creatingTask'
+import { deleteProject, showEditOptions } from './editingProject';
 
 let projectID = 0;
-let allProjects = [];
-
+let allProjects = JSON.parse(localStorage.getItem("allProjects")) || [];
+console.log(allProjects)
 
 function addEventListeners() {
     const showFormButton = document.querySelector(".create-form-button");
@@ -14,7 +15,7 @@ function addEventListeners() {
     const addProjectButton = document.querySelector(".button.add-project");
     addProjectButton.addEventListener("click", () => createNewProject());
 
-    
+    showProjects()
 }
 
 function CreateProject(title) {
@@ -30,15 +31,14 @@ function createNewProject() {
         const projectTitle = document.getElementById("project-title").value;
         const newProject = CreateProject(projectTitle);
         allProjects.push(newProject);
+        saveToLocalStorage()
         closeForm()
         showProjects();
     }
 }
 
-function deleteProject(id) {
-    let index = allProjects.findIndex(project => project.id === id);
-    allProjects.splice(index, 1);
-    showProjects();
+function saveToLocalStorage() {
+    localStorage.setItem('allProjects', JSON.stringify(allProjects));
 }
 
 function createForm() {
@@ -63,8 +63,9 @@ function validateForm() {
 function showProjects() {
     let projectsListDiv = document.querySelector(".projects-list");
     projectsListDiv.innerHTML = "";
+    const storedProjects = JSON.parse(localStorage.getItem("allProjects"));
 
-    for (let i = 0; i < allProjects.length; i++) {
+    for (let i = 0; i < storedProjects.length; i++) {
 
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project");
@@ -119,31 +120,6 @@ function showProjects() {
     }
 }
 
-
-function showEditOptions(editContainer) {
-    const optionsButtons = editContainer.querySelector(".options-buttons");
-
-    // Close all open options before toggling the current one
-    document.querySelectorAll('.visible').forEach(container => {
-        if (container !== editContainer) {
-            container.classList.remove('visible');
-        }
-    });
-
-    // Add a click event listener to the document body
-    // If clicked, options become invisible
-    document.body.addEventListener("click", () => {
-        optionsButtons.classList.remove("visible");
-        });
-
-    editContainer.addEventListener("click", (event) => {
-        event.stopPropagation();
-    })
-
-    optionsButtons.classList.toggle("visible");
-
-}
-
 function selectProject(projectDiv, project) {
     document.querySelectorAll(".selected").forEach(container => {
         if(container !== projectDiv) {
@@ -161,4 +137,4 @@ function selectProject(projectDiv, project) {
     showFormButton.style.display = "flex"
 }
 
-export { addEventListeners, allProjects}
+export { addEventListeners, allProjects, showProjects, saveToLocalStorage}
