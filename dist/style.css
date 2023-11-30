@@ -19,7 +19,6 @@ body {
     "sidebar main"
     "footer footer";
     height: 100%;
-
 }
 /*Header*/
 .header {
@@ -50,14 +49,12 @@ body {
     padding: 25px;
     gap: 20px;
 }
-
 .home {
     display: flex;
     flex-direction: column;
     gap: 10px;
     
 }
-
 .home-heading,
 .projects-heading {
     font-size: 26px;
@@ -76,13 +73,11 @@ body {
     font-size: 18px;
     height: 40px;
 }
-
 .tile > img {
     width: 35px;
     height: 35px;
     margin-left: 20px;
 }
-
 .tile:hover {
     cursor: pointer;
     background-color: #ececec;
@@ -117,7 +112,6 @@ body {
     width: 25px;
     height: 25px;
 }
-
 .create-project-button:hover {
     cursor: pointer;
     background-color: #ececec;
@@ -135,7 +129,6 @@ body {
     flex-direction: column;
     padding: 30px;
 }
-
 .title {
     display: flex;
     align-items: center;
@@ -159,7 +152,6 @@ body {
     gap: 10px;
     margin-top: 20px;
 }
-
 .task:hover {
     cursor: pointer;
     background-color: #fefcfe;
@@ -170,32 +162,26 @@ body {
     border-radius: 50%;
     border: 2px solid black
 }
-
 .task-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: start;
 }
-
 .task-title {
     font-size: 20px;
 }
-
 .task-description {
     font-size: 14px;
 }
-
 .date {
     border: 1px solid black;
     border-radius: 10px;
     padding: 2px;
 }
-
 .important-star {
     font-size: 20px;
 }
-
 .edit-icons {
     display: flex;
     flex-direction: column;
@@ -225,25 +211,21 @@ body {
     padding: 15px;
     display: none;
 }
-
 .task-form > textarea {
     resize: none;
     border: 2px solid black;
     border-radius: 5px;
     font-size: 16px;
 }
-
 .task-form {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
-
 .task-form > label {
     align-self: flex-start;
 }
-
 .task-form > input {
     border-radius: 5px;
     height: 30px;
@@ -277,9 +259,6 @@ body {
     flex: 1;
     text-align: start;
 }
-
-
-
 .add-project-form {
     display: flex;
     flex-direction: column;
@@ -293,6 +272,7 @@ body {
 .add-project-form:hover {
     background-color: #f2f3f5;
 }
+
 /*Edit containers*/
 .options-buttons {
     display: none;
@@ -316,18 +296,15 @@ body {
     background-color: #f2f3f5;
     width: 80px;
     height: 30px;
-
-    
 }
 .options-buttons > button:hover {
     cursor: pointer;
     background-color: #ececec;
-    
 }
-
 .visible {
     display: flex;
 }
+
 /*Selected project*/
 .selected {
     background-color: rgba(43, 189, 103, 0.3);
@@ -336,8 +313,6 @@ body {
 .selected:hover {
     background-color: rgba(43, 189, 103, 0.6);
 }
-
-
 .project-title-input {
     height: 30px;
     border: 2px solid black;
