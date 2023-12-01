@@ -40,6 +40,7 @@ function showEditOptions(editContainer) {
   document.body.addEventListener('click', hideOptions);
 }
 
+
 function showRenameForm() {
   // Select current project
   const selectedProject = document.querySelector('.selected');
@@ -61,11 +62,10 @@ function showRenameForm() {
   renameProjectContainer.classList.add('rename-project-container');
   renameProjectContainer.classList.remove('hidden');
 
-
-
   // Create new input and put current project name
   const titleInput = document.createElement('input');
   titleInput.classList.add('project-title-input');
+  titleInput.setAttribute('id', 'rename-project-input')
   titleInput.value = currentProjectName
   renameProjectContainer.appendChild(titleInput);
 
@@ -77,6 +77,7 @@ function showRenameForm() {
   renameButton.classList.add('button');
   renameButton.classList.add('add-project');
   renameButton.style.marginRight = '3px';
+  renameButton.addEventListener('click', saveProjectTitle)
   editButtons.appendChild(renameButton);
 
   const cancelButton = document.createElement('button');
@@ -95,13 +96,28 @@ function closeRenameForm() {
   const selectedProject = document.querySelector('.selected');
   selectedProject.classList.remove('edit-project')
 
+  // Select opened container and delete it from DOM
   const renameProjectContainer = selectedProject.querySelector('.rename-project-container');
   renameProjectContainer.remove()
-  
+
+  // Show project title and edit dots
   const projectTitle = selectedProject.querySelector('.project-list-title');
   const editContainer = selectedProject.querySelector('.edit-options');
   projectTitle.classList.remove('hidden');
   editContainer.classList.remove('hidden');
 }
+
+function saveProjectTitle() {
+  const selectedProject = document.querySelector('.selected');
+  const projectIndex = selectedProject.dataset.project;
+
+  const newProjectTitle = document.getElementById('rename-project-input').value
+
+  allProjects[projectIndex].title = newProjectTitle;
+  saveToLocalStorage()
+  closeRenameForm()
+  showProjects()
+}
+
 
 export { deleteProject, showEditOptions, showRenameForm };
