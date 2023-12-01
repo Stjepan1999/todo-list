@@ -1,12 +1,16 @@
-import { showProjects, allProjects, saveToLocalStorage } from './creatingProject';
+import {
+  showProjects,
+  allProjects,
+  saveToLocalStorage,
+} from './creatingProject';
 import { showAllTasks } from './homeSection';
 
 function deleteProject(id) {
   const index = allProjects.findIndex((project) => project.id === id);
   allProjects.splice(index, 1);
   saveToLocalStorage();
-  showAllTasks();
   showProjects();
+  showAllTasks();
 }
 
 function showEditOptions(editContainer) {
@@ -36,4 +40,53 @@ function showEditOptions(editContainer) {
   document.body.addEventListener('click', hideOptions);
 }
 
-export { deleteProject, showEditOptions };
+function showRenameForm() {
+  // Select current project
+  const selectedProject = document.querySelector('.selected');
+  selectedProject.classList.remove('selected');
+  selectedProject.classList.add('edit-project');
+
+
+  // Hide project title and edit dots
+  const projectTitle = selectedProject.querySelector('.project-list-title');
+  const editContainer = selectedProject.querySelector('.edit-options');
+  projectTitle.classList.add('hidden');
+  editContainer.classList.add('hidden');
+
+  // Get current project name
+  const currentProjectName = projectTitle.textContent;
+  console.log(currentProjectName);
+
+  // Create new container for input and buttons
+  const renameProjectContainer = document.createElement('div');
+  renameProjectContainer.classList.add('rename-project-container');
+
+
+  // Create new input and put current project name
+  const titleInput = document.createElement('input');
+  titleInput.classList.add('project-title-input');
+  titleInput.value = currentProjectName
+  renameProjectContainer.appendChild(titleInput);
+
+  // Create buttons for saving and closing form
+  const editButtons = document.createElement('div');
+  
+  const renameButton = document.createElement('button');
+  renameButton.textContent = 'Save';
+  renameButton.classList.add('button');
+  renameButton.classList.add('add-project');
+  renameButton.style.marginRight = '3px';
+  editButtons.appendChild(renameButton);
+
+  const cancelButton = document.createElement('button');
+  cancelButton.textContent = 'Cancel';
+  cancelButton.classList.add('button');
+  cancelButton.classList.add('close-form')
+  editButtons.appendChild(cancelButton)
+
+
+  renameProjectContainer.appendChild(editButtons)
+  selectedProject.appendChild(renameProjectContainer)
+}
+
+export { deleteProject, showEditOptions, showRenameForm };
