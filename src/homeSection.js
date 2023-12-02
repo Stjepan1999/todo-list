@@ -1,6 +1,6 @@
 import { format, addDays } from 'date-fns';
 import { showTasks } from './creatingTask';
-import { allProjects } from './creatingProject';
+import { allProjects, selectProject } from './creatingProject';
 
 function showHomeSectionTile() {
   const allTasks = document.getElementById('all-tasks');
@@ -99,4 +99,4 @@ function showTitle(titleName) {
   title.textContent = titleName;
 }
 
-export { showHomeSectionTile, showAllTasks };
+export { showHomeSectionTile, showAllTasks, showTitle };

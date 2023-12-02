@@ -40,14 +40,12 @@ function showEditOptions(editContainer) {
   document.body.addEventListener('click', hideOptions);
 }
 
-
 function showRenameForm() {
   // Select current project
   const selectedProject = document.querySelector('.selected');
   selectedProject.classList.remove('selected');
   selectedProject.classList.add('edit-project');
 
-  
   // Hide project title and edit dots
   const projectTitle = selectedProject.querySelector('.project-list-title');
   const editContainer = selectedProject.querySelector('.edit-options');
@@ -65,40 +63,41 @@ function showRenameForm() {
   // Create new input and put current project name
   const titleInput = document.createElement('input');
   titleInput.classList.add('project-title-input');
-  titleInput.setAttribute('id', 'rename-project-input')
-  titleInput.value = currentProjectName
+  titleInput.setAttribute('id', 'rename-project-input');
+  titleInput.value = currentProjectName;
   renameProjectContainer.appendChild(titleInput);
 
   // Create buttons for saving and closing form
   const editButtons = document.createElement('div');
-  
+
   const renameButton = document.createElement('button');
   renameButton.textContent = 'Save';
   renameButton.classList.add('button');
   renameButton.classList.add('add-project');
   renameButton.style.marginRight = '3px';
-  renameButton.addEventListener('click', saveProjectTitle)
+  renameButton.addEventListener('click', saveProjectTitle);
   editButtons.appendChild(renameButton);
 
   const cancelButton = document.createElement('button');
   cancelButton.textContent = 'Cancel';
   cancelButton.classList.add('button');
-  cancelButton.classList.add('close-form')
-  cancelButton.addEventListener('click', closeRenameForm)
-  editButtons.appendChild(cancelButton)
+  cancelButton.classList.add('close-form');
+  cancelButton.addEventListener('click', closeRenameForm);
+  editButtons.appendChild(cancelButton);
 
-
-  renameProjectContainer.appendChild(editButtons)
-  selectedProject.appendChild(renameProjectContainer)
+  renameProjectContainer.appendChild(editButtons);
+  selectedProject.appendChild(renameProjectContainer);
 }
 
 function closeRenameForm() {
   const selectedProject = document.querySelector('.selected');
-  selectedProject.classList.remove('edit-project')
+  selectedProject.classList.remove('edit-project');
 
   // Select opened container and delete it from DOM
-  const renameProjectContainer = selectedProject.querySelector('.rename-project-container');
-  renameProjectContainer.remove()
+  const renameProjectContainer = selectedProject.querySelector(
+    '.rename-project-container',
+  );
+  renameProjectContainer.remove();
 
   // Show project title and edit dots
   const projectTitle = selectedProject.querySelector('.project-list-title');
@@ -108,16 +107,18 @@ function closeRenameForm() {
 }
 
 function saveProjectTitle() {
+  // Get selected project index
   const selectedProject = document.querySelector('.selected');
   const projectIndex = selectedProject.dataset.project;
 
-  const newProjectTitle = document.getElementById('rename-project-input').value
+  const newProjectTitle = document.getElementById('rename-project-input').value;
 
+  // Change project title in allProjects array and save it
   allProjects[projectIndex].title = newProjectTitle;
-  saveToLocalStorage()
-  closeRenameForm()
-  showProjects()
+
+  saveToLocalStorage();
+  closeRenameForm();
+  showProjects();
 }
 
-
-export { deleteProject, showEditOptions, showRenameForm };
+export { deleteProject, showEditOptions, showRenameForm, closeRenameForm };

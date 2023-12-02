@@ -1,4 +1,5 @@
 import { allProjects, saveToLocalStorage } from './creatingProject';
+import { showEditOptions, deleteTask, showEditForm } from './editingTask';
 
 let taskID = 0;
 
@@ -39,12 +40,6 @@ function createNewTask() {
   showTasks(project);
 }
 
-function deleteTask(project, index) {
-  project.splice(index, 1);
-  showTasks(project);
-  saveToLocalStorage();
-}
-
 function showForm() {
   const taskForm = document.querySelector('.add-task-form');
   taskForm.style.display = 'flex';
@@ -66,6 +61,7 @@ function showTasks(projectTasks) {
   for (let i = 0; i < projectTasks.length; i++) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task');
+    taskDiv.dataset.id = i
 
     const circle = document.createElement('span');
     circle.classList.add('circle');
@@ -104,7 +100,7 @@ function showTasks(projectTasks) {
     const editContainer = document.createElement('div');
     editContainer.classList.add('edit-options');
     editContainer.addEventListener('click', () =>
-      showEditOptions(editContainer),
+      showEditOptions(taskDiv),
     );
 
     const editIcons = document.createElement('div');
@@ -128,6 +124,7 @@ function showTasks(projectTasks) {
     const editTaskButton = document.createElement('button');
     editTaskButton.classList.add('rename-project-button');
     editTaskButton.textContent = 'Edit';
+    editTaskButton.addEventListener('click', () => showEditForm(taskDiv, projectTasks[i]))
 
     optionsButtons.appendChild(deleteTaskButton);
     optionsButtons.appendChild(editTaskButton);
@@ -158,27 +155,7 @@ function addToImportant(task, importantStar) {
   saveToLocalStorage();
 }
 
-function showEditOptions(editContainer) {
-  const optionsButtons = editContainer.querySelector('.options-buttons');
 
-  // Close all open options before toggling the current one
-  document.querySelectorAll('.visible').forEach((container) => {
-    if (container !== editContainer) {
-      container.classList.remove('visible');
-    }
-  });
-  optionsButtons.classList.toggle('visible');
-
-  // Add a click event listener to the document body
-  // If clicked, options become invisible
-  document.body.addEventListener('click', () => {
-    optionsButtons.classList.remove('visible');
-  });
-
-  editContainer.addEventListener('click', (event) => {
-    event.stopPropagation();
-  });
-}
 
 function findSelectedProject() {
   const selected = document.querySelector('.selected');

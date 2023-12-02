@@ -1,5 +1,9 @@
 import { showTasks } from './creatingTask';
-import { deleteProject, showEditOptions } from './editingProject';
+import {
+  deleteProject,
+  showEditOptions,
+  showRenameForm,
+} from './editingProject';
 
 let projectID = 0;
 const allProjects = JSON.parse(localStorage.getItem('allProjects')) || [];
@@ -69,7 +73,7 @@ function showProjects() {
     projectDiv.classList.add('project');
     projectDiv.dataset.project = i;
     projectDiv.addEventListener('click', () =>
-      selectProject(projectDiv, allProjects[i]),
+      selectProject(projectDiv, storedProjects[i]),
     );
 
     const projectIcon = document.createElement('img');
@@ -79,7 +83,7 @@ function showProjects() {
 
     const projectTitle = document.createElement('div');
     projectTitle.classList.add('project-list-title');
-    projectTitle.textContent = allProjects[i].title;
+    projectTitle.textContent = storedProjects[i].title;
     projectDiv.appendChild(projectTitle);
 
     const editContainer = document.createElement('div');
@@ -100,13 +104,13 @@ function showProjects() {
     deleteProjectButton.classList.add('delete-project-button');
     deleteProjectButton.textContent = 'Delete';
     deleteProjectButton.addEventListener('click', () =>
-      deleteProject(allProjects[i].id),
+      deleteProject(storedProjects[i].id),
     );
 
     const renameProjectButton = document.createElement('button');
     renameProjectButton.classList.add('rename-project-button');
     renameProjectButton.textContent = 'Rename';
-    renameProjectButton.addEventListener('click', () => renameProject());
+    renameProjectButton.addEventListener('click', () => showRenameForm());
 
     optionsButtons.appendChild(deleteProjectButton);
     optionsButtons.appendChild(renameProjectButton);
@@ -119,7 +123,7 @@ function showProjects() {
     projectsListDiv.appendChild(projectDiv);
 
     editContainer.addEventListener('click', () =>
-      showEditOptions(editContainer),
+      showEditOptions(projectDiv),
     );
   }
 }
@@ -139,6 +143,13 @@ function selectProject(projectDiv, project) {
 
   const showFormButton = document.querySelector('.create-task-button');
   showFormButton.style.display = 'flex';
+
 }
 
-export { addEventListeners, allProjects, showProjects, saveToLocalStorage };
+export {
+  addEventListeners,
+  allProjects,
+  showProjects,
+  saveToLocalStorage,
+  selectProject,
+};
