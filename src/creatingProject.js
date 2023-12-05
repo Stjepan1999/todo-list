@@ -66,14 +66,13 @@ function validateForm() {
 function showProjects() {
   const projectsListDiv = document.querySelector('.projects-list');
   projectsListDiv.innerHTML = '';
-  const storedProjects = JSON.parse(localStorage.getItem('allProjects'));
 
-  for (let i = 0; i < storedProjects.length; i++) {
+  for (let i = 0; i < allProjects.length; i++) {
     const projectDiv = document.createElement('div');
     projectDiv.classList.add('project');
     projectDiv.dataset.project = i;
     projectDiv.addEventListener('click', () =>
-      selectProject(projectDiv, storedProjects[i]),
+      selectProject(projectDiv, allProjects[i]),
     );
 
     const projectIcon = document.createElement('img');
@@ -83,7 +82,7 @@ function showProjects() {
 
     const projectTitle = document.createElement('div');
     projectTitle.classList.add('project-list-title');
-    projectTitle.textContent = storedProjects[i].title;
+    projectTitle.textContent = allProjects[i].title;
     projectDiv.appendChild(projectTitle);
 
     const editContainer = document.createElement('div');
@@ -104,7 +103,7 @@ function showProjects() {
     deleteProjectButton.classList.add('delete-project-button');
     deleteProjectButton.textContent = 'Delete';
     deleteProjectButton.addEventListener('click', () =>
-      deleteProject(storedProjects[i].id),
+      deleteProject(allProjects[i].id),
     );
 
     const renameProjectButton = document.createElement('button');

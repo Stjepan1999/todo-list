@@ -1,4 +1,4 @@
-import { allProjects, saveToLocalStorage, selectProject } from './creatingProject';
+import { allProjects, saveToLocalStorage } from './creatingProject';
 import { showEditOptions, deleteTask, showEditForm } from './editingTask';
 
 let taskID = 0;
@@ -58,6 +58,7 @@ function closeForm() {
 function showTasks(projectTasks) {
   const tasksContainer = document.querySelector('.tasks-container');
   tasksContainer.innerHTML = '';
+  console.log(projectTasks)
 
   for (let i = 0; i < projectTasks.length; i++) {
     const taskDiv = document.createElement('div');
