@@ -28,24 +28,38 @@ function showEditOptions(editContainer) {
     document.body.addEventListener('click', hideOptions);
   }
 
-function showEditForm(taskDiv, projectDetails) {
-  // Hide selected task
-  taskDiv.classList.add('hidden')
+function showEditForm() {
+  const selectedTask = document.querySelector('.selected-task');
+  selectedTask.classList.add('hidden');
 
   const editForm = document.querySelector('.add-task-form')
   editForm.style.display = "block"
 
+  const saveButton = editForm.querySelector('.button.add-task');
+  saveButton.textContent = 'Save';
+  
+  const cancelButton = editForm.querySelector('.button.close-task-form')
+  cancelButton.addEventListener('click', closeEditTaskForm)
+
   // Replace selected task with edit form
-  taskDiv.replaceWith(editForm)
-  populateEditForm(projectDetails)
+  selectedTask.parentElement.appendChild(editForm);
+  populateEditForm()
 }
 
-function populateEditForm(projectDetails) {
-  
+function populateEditForm() {
 
+  
   document.getElementById('task-title').value = projectDetails.title;
   document.getElementById('task-description').value = projectDetails.description;
   document.getElementById('task-date').value = projectDetails.date
+}
+
+function closeEditTaskForm() {
+  const selectedTask = document.querySelector('.selected-task');
+  selectedTask.classList.remove('hidden');
+  
+  const editForm = document.querySelector('.add-task-form');
+  editForm.style.display = 'none'
 }
 
 function deleteTask(project, index) {

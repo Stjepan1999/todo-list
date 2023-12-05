@@ -1,4 +1,4 @@
-import { allProjects, saveToLocalStorage } from './creatingProject';
+import { allProjects, saveToLocalStorage, selectProject } from './creatingProject';
 import { showEditOptions, deleteTask, showEditForm } from './editingTask';
 
 let taskID = 0;
@@ -21,6 +21,7 @@ function CreateTask(title, description, date) {
     description,
     date,
     important: false,
+    completed: false,
   };
 }
 
@@ -61,13 +62,20 @@ function showTasks(projectTasks) {
   for (let i = 0; i < projectTasks.length; i++) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task');
-    taskDiv.dataset.id = i
-
-    const circle = document.createElement('span');
-    circle.classList.add('circle');
+    taskDiv.dataset.id = i;
+    taskDiv.addEventListener('click', () => selectTask(taskDiv))
 
     const taskInfo = document.createElement('div');
     taskInfo.classList.add('task-info');
+
+    const circle = document.createElement('span');
+    circle.classList.add('circle');
+    if (projectTasks[i].completed) {
+      circle.classList.add('circle-completed');
+      circle.textContent = '✓';
+      taskInfo.classList.add('completed-task');
+    } 
+    circle.addEventListener('click', () => completeTask(projectTasks[i], circle, taskInfo))
 
     const taskTitle = document.createElement('div');
     taskTitle.classList.add('task-title');
@@ -155,6 +163,30 @@ function addToImportant(task, importantStar) {
   saveToLocalStorage();
 }
 
+function completeTask(task, circle, taskInfo) {
+  if (!task.completed) {
+    task.completed = true;
+    circle.classList.add('circle-completed');
+    circle.textContent = '✓'
+    taskInfo.classList.add('completed-task')
+  } else { 
+    task.completed = false;
+    circle.classList.remove('circle-completed')
+    circle.textContent = ''
+    taskInfo.classList.remove('completed-task')
+  }
+  saveToLocalStorage()
+}
+
+
+function selectTask(taskDiv) {
+  document.querySelectorAll('.selected-task').forEach((container) => {
+    if (container !== taskDiv) {
+      container.classList.remove('selected-task');
+    }
+  });
+  taskDiv.classList.add('selected-task');
+}
 
 
 function findSelectedProject() {
