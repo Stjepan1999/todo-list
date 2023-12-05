@@ -164,6 +164,9 @@ body {
 .circle-completed {
   background-color: #2bbd67;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .completed-task {
   text-decoration: line-through;
