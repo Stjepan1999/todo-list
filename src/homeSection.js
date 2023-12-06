@@ -1,25 +1,26 @@
 import { format, addDays } from 'date-fns';
 import { showTasks } from './creatingTask';
-import { allProjects, selectProject } from './creatingProject';
+import { allProjects } from './creatingProject';
 
 function showHomeSectionTile() {
   const allTasks = document.getElementById('all-tasks');
-  allTasks.addEventListener('click', showAllTasks);
+  allTasks.addEventListener('click', (event) => showAllTasks(event));
 
   const todayTasks = document.getElementById('today');
-  todayTasks.addEventListener('click', showTodayTasks);
+  todayTasks.addEventListener('click', (event) => showTodayTasks(event));
 
   const thisWeekTasks = document.getElementById('this-week');
-  thisWeekTasks.addEventListener('click', showThisWeekTasks);
+  thisWeekTasks.addEventListener('click', (event) => showThisWeekTasks(event));
 
   const importantTasks = document.getElementById('important');
-  importantTasks.addEventListener('click', showImportantTasks);
+  importantTasks.addEventListener('click', (event) => showImportantTasks(event));
 
   showAllTasks();
 }
 
-function showAllTasks() {
+function showAllTasks(event) {
   showTitle('All Tasks');
+  selectHomeSectionTile(event)
   const allTasks = [];
 
   if (allProjects.length > 0) {
@@ -32,8 +33,9 @@ function showAllTasks() {
   showTasks(allTasks);
 }
 
-function showTodayTasks() {
+function showTodayTasks(event) {
   showTitle('Today');
+  selectHomeSectionTile(event)
   const todayTasks = [];
   const rawDate = new Date();
   const todayDate = format(rawDate, 'yyyy-MM-dd');
@@ -50,9 +52,9 @@ function showTodayTasks() {
   showTasks(todayTasks);
 }
 
-function showThisWeekTasks() {
+function showThisWeekTasks(event) {
   showTitle('Next 7 Days');
-
+  selectHomeSectionTile(event)
   const thisWeekTasks = [];
 
   // Array for storing this week dates
@@ -75,9 +77,9 @@ function showThisWeekTasks() {
   showTasks(thisWeekTasks);
 }
 
-function showImportantTasks() {
+function showImportantTasks(event) {
   showTitle('Important');
-
+  selectHomeSectionTile(event)
   const importantTasks = [];
   if (allProjects.length > 0) {
     allProjects.forEach((project) => {
@@ -91,12 +93,27 @@ function showImportantTasks() {
   showTasks(importantTasks);
 }
 
+// Update task header each time selected project change
 function showTitle(titleName) {
   const showFormButton = document.querySelector('.create-task-button');
   showFormButton.classList.add('hidden')
 
   const title = document.querySelector('.title');
   title.textContent = titleName;
+}
+
+// Add selected class to selected tile
+function selectHomeSectionTile(event) {
+  const tileDiv = event.target.closest('.tile');
+
+  // If other project/tile have selected class, remove it
+  document.querySelectorAll('.selected').forEach((tile) => {
+    if (tile !== tileDiv) {
+      tile.classList.remove('selected')
+    }
+  })
+  // Add selected class to clicked element
+  tileDiv.classList.add('selected')
 }
 
 export { showHomeSectionTile, showAllTasks, showTitle };

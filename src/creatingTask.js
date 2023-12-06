@@ -1,7 +1,8 @@
 import { allProjects, saveToLocalStorage } from './creatingProject';
 import { showEditOptions, deleteTask, showEditForm, updateImportantTask, completeTask, styleImportantTask } from './editingTask';
 
-let taskID = 0;
+// Get task ID for tasks, or create default one
+let taskID = parseInt(localStorage.getItem('projectID')) || 0;
 
 function createTaskEvents() {
   const showFormButton = document.querySelector('.create-task-button');
@@ -30,11 +31,11 @@ function createNewTask() {
   const taskDescription = document.getElementById('task-description').value;
   const taskDate = document.getElementById('task-date').value;
 
-  // Find index of selected project, and add task to that project
-  const projectIndex = findSelectedProject();
-  const project = allProjects[projectIndex].tasks;
-
   const newTask = CreateTask(taskTitle, taskDescription, taskDate);
+
+  // Find index of selected project, and add task to that project
+  const index = findSelectedProject();
+  const project = allProjects[index].tasks;
   project.push(newTask);
 
   saveToLocalStorage();
@@ -156,9 +157,12 @@ function createTaskElement(task) {
     return taskDiv
 }
 
+// Find selected project with 'selected' class
 function findSelectedProject() {
   const selected = document.querySelector('.selected');
-  return selected.dataset.project;
+  const projectID = Number(selected.dataset.id);
+  const index = allProjects.findIndex(project => project.id === projectID);
+  return index
 }
 
 // Create three dots for accesing editing options for task, and project
@@ -173,4 +177,4 @@ function createEditIcons() {
   return editIcons
 }
 
-export { createTaskEvents, showTasks, createEditIcons };
+export { createTaskEvents, showTasks, createEditIcons, taskID };

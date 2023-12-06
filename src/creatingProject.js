@@ -1,11 +1,14 @@
-import { createEditIcons, showTasks, showTasksTest } from './creatingTask';
+import { createEditIcons, showTasks, taskID } from './creatingTask';
 import {
   deleteProject,
   showEditOptions,
   showRenameForm,
 } from './editingProject';
 
-let projectID = 0;
+// Get ID for projects, or create default one
+let projectID = parseInt(localStorage.getItem('projectID')) || 0;
+
+// Get all projects array, or create empty one
 const allProjects = JSON.parse(localStorage.getItem('allProjects')) || [];
 
 function addEventListeners() {
@@ -43,6 +46,8 @@ function createNewProject() {
 // Save all changes in projects or tasks
 function saveToLocalStorage() {
   localStorage.setItem('allProjects', JSON.stringify(allProjects));
+  localStorage.setItem('projectID', projectID.toString());
+  localStorage.setItem('taskID', taskID.toString())
 }
 
 // Show form for adding projects
@@ -82,7 +87,7 @@ function showProjects() {
 function createProjectElement(project) {
     const projectDiv = document.createElement('div');
     projectDiv.classList.add('project');
-    projectDiv.dataset.project = project.id;
+    projectDiv.dataset.id = project.id;
     projectDiv.addEventListener('click', (event) =>
       selectProject(event, project),
     );
@@ -157,6 +162,7 @@ function selectProject(event, project) {
   const showTaskFormButton = document.querySelector('.create-task-button');
   showTaskFormButton.classList.remove('hidden')
 }
+
 
 export {
   addEventListeners,
