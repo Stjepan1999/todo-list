@@ -93,7 +93,7 @@ function showImportantTasks() {
 
 function showTitle(titleName) {
   const showFormButton = document.querySelector('.create-task-button');
-  showFormButton.style.display = 'none';
+  showFormButton.classList.add('hidden')
 
   const title = document.querySelector('.title');
   title.textContent = titleName;

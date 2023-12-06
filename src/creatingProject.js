@@ -46,12 +46,12 @@ function saveToLocalStorage() {
 
 function createForm() {
   const addProjectForm = document.querySelector('.add-project-form');
-  addProjectForm.style.display = 'flex';
+  addProjectForm.classList.remove('hidden')
 }
 
 function closeForm() {
   const addProjectForm = document.querySelector('.add-project-form');
-  addProjectForm.style.display = 'none';
+  addProjectForm.classList.add('hidden')
   document.getElementById('project-title').value = '';
 }
 
@@ -71,8 +71,8 @@ function showProjects() {
     const projectDiv = document.createElement('div');
     projectDiv.classList.add('project');
     projectDiv.dataset.project = i;
-    projectDiv.addEventListener('click', () =>
-      selectProject(projectDiv, allProjects[i]),
+    projectDiv.addEventListener('click', (event) =>
+      selectProject(event, allProjects[i]),
     );
 
     const projectIcon = document.createElement('img');
@@ -127,22 +127,29 @@ function showProjects() {
   }
 }
 
-function selectProject(projectDiv, project) {
+function selectProject(event, project) {
+  const projectDiv = event.target.closest('.project');
+
+  // If other project have 'selected' class, remove it
   document.querySelectorAll('.selected').forEach((container) => {
     if (container !== projectDiv) {
       container.classList.remove('selected');
     }
   });
+
+  // Add selected class to clicked project
   projectDiv.classList.add('selected');
 
+  // Update title of main section where tasks are showed
   const title = document.querySelector('.title');
   title.textContent = project.title;
 
+  // Show tasks of project that is clicked
   showTasks(project.tasks);
 
-  const showFormButton = document.querySelector('.create-task-button');
-  showFormButton.style.display = 'flex';
-
+  // Show form button for adding new tasks only in projects
+  const showTaskFormButton = document.querySelector('.create-task-button');
+  showTaskFormButton.classList.remove('hidden')
 }
 
 export {

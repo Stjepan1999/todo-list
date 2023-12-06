@@ -100,7 +100,7 @@ body {
   background-color: #fefcfe;
 }
 .create-task-button {
-  display: none;
+  display: flex;
   background-color: #ececec;
   margin-top: 20px;
 }
@@ -222,7 +222,7 @@ body {
   border-radius: 5px;
   background: #ececec;
   padding: 15px;
-  display: none;
+  display: flex;
 }
 .task-form > textarea {
   resize: none;
@@ -282,7 +282,6 @@ body {
   margin-top: 10px;
   border-radius: 5px;
   height: 100px;
-  display: none;
 }
 .add-project-form:hover {
   background-color: #f2f3f5;

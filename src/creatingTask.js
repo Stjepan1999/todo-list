@@ -30,6 +30,7 @@ function createNewTask() {
   const taskDescription = document.getElementById('task-description').value;
   const taskDate = document.getElementById('task-date').value;
 
+  // Find index of selected project, and add task to that project
   const projectIndex = findSelectedProject();
   const project = allProjects[projectIndex].tasks;
 
@@ -41,14 +42,16 @@ function createNewTask() {
   showTasks(project);
 }
 
+// Show form for adding task
 function showForm() {
   const taskForm = document.querySelector('.add-task-form');
-  taskForm.style.display = 'flex';
+  taskForm.classList.remove('hidden')
 }
 
+// Hide form for adding task
 function closeForm() {
   const taskForm = document.querySelector('.add-task-form');
-  taskForm.style.display = 'none';
+  taskForm.classList.add('hidden')
 
   document.getElementById('task-title').value = '';
   document.getElementById('task-description').value = '';
@@ -58,13 +61,11 @@ function closeForm() {
 function showTasks(projectTasks) {
   const tasksContainer = document.querySelector('.tasks-container');
   tasksContainer.innerHTML = '';
-  console.log(projectTasks)
 
   for (let i = 0; i < projectTasks.length; i++) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task');
-    taskDiv.dataset.id = i;
-    taskDiv.addEventListener('click', () => selectTask(taskDiv))
+    taskDiv.dataset.id = projectTasks[i].id;
 
     const taskInfo = document.createElement('div');
     taskInfo.classList.add('task-info');
@@ -179,15 +180,6 @@ function completeTask(task, circle, taskInfo) {
   saveToLocalStorage()
 }
 
-
-function selectTask(taskDiv) {
-  document.querySelectorAll('.selected-task').forEach((container) => {
-    if (container !== taskDiv) {
-      container.classList.remove('selected-task');
-    }
-  });
-  taskDiv.classList.add('selected-task');
-}
 
 
 function findSelectedProject() {

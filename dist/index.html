@@ -38,7 +38,7 @@
         <div class="projects-container">
           <div class="projects-heading">Projects</div>
           <div class="projects-list"></div>
-          <div class="add-project-form">
+          <div class="add-project-form hidden">
             <form>
               <input
                 type="text"
@@ -61,8 +61,21 @@
 
       <div class="main">
         <div class="title">All Tasks</div>
-        <div class="tasks-container"></div>
-        <div class="add-task-form">
+        <div class="tasks-container">
+
+          <div class="edit-options hidden" id="task-edit-option">
+            <div class="edit-icons">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="options-buttons">
+              <button class="delete-project-button">Delete</button>
+              <button class="rename-project-button">Edit</button>
+            </div>
+          </div>
+        </div>
+        <div class="add-task-form hidden">
           <form class="task-form">
             <label for="task-title">Title: </label>
             <input
@@ -87,7 +100,7 @@
             <button class="button close-task-form">Cancel</button>
           </div>
         </div>
-        <button class="create-task-button">
+        <button class="create-task-button hidden">
           <img src="./images/add-circle.svg" />Add Task
         </button>
       </div>
