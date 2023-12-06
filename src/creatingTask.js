@@ -1,5 +1,5 @@
 import { allProjects, saveToLocalStorage } from './creatingProject';
-import { showEditOptions, deleteTask, showEditForm } from './editingTask';
+import { showEditOptions, deleteTask, showEditForm, updateImportantTask, completeTask, styleImportantTask } from './editingTask';
 
 let taskID = 0;
 
@@ -58,63 +58,82 @@ function closeForm() {
   document.getElementById('task-date').value = '';
 }
 
-function showTasks(projectTasks) {
-  const tasksContainer = document.querySelector('.tasks-container');
-  tasksContainer.innerHTML = '';
+function showTasks(project) {
+  const taskContainer = document.querySelector('.tasks-container');
+  taskContainer.innerHTML = '';
 
-  for (let i = 0; i < projectTasks.length; i++) {
+  project.forEach((task) => {
+    const taskDiv = createTaskElement(task);
+    taskContainer.appendChild(taskDiv)
+  })
+}
+
+function createTaskElement(task) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task');
-    taskDiv.dataset.id = projectTasks[i].id;
+    taskDiv.dataset.id = task.id;
 
     const taskInfo = document.createElement('div');
     taskInfo.classList.add('task-info');
 
     const circle = document.createElement('span');
     circle.classList.add('circle');
-    if (projectTasks[i].completed) {
+    if (task.completed) {
       circle.classList.add('circle-completed');
       circle.textContent = '✓';
       taskInfo.classList.add('completed-task');
     } 
-    circle.addEventListener('click', () => completeTask(projectTasks[i], circle, taskInfo))
+    circle.addEventListener('click', () => completeTask(task, circle, taskInfo))
+
+    taskDiv.appendChild(circle);
+    taskDiv.appendChild(taskInfo);
 
     const taskTitle = document.createElement('div');
     taskTitle.classList.add('task-title');
-    taskTitle.textContent = projectTasks[i].title;
+    taskTitle.textContent = task.title;
+    taskInfo.appendChild(taskTitle);
 
     const taskDescription = document.createElement('div');
     taskDescription.classList.add('task-description');
-    taskDescription.textContent = projectTasks[i].description;
+    taskDescription.textContent = task.description;
+    taskInfo.appendChild(taskDescription);
 
     const taskDate = document.createElement('div');
     taskDate.classList.add('date');
-    if (projectTasks[i].date === '') {
+    taskDiv.appendChild(taskDate);
+
+    if (task.date === '') {
       taskDate.textContent = 'No Due Date';
     } else {
-      taskDate.textContent = projectTasks[i].date;
+      taskDate.textContent = task.date;
     }
 
     const importantStar = document.createElement('div');
     importantStar.classList.add('important-star');
-    if (projectTasks[i].important) {
+    taskDiv.appendChild(importantStar);
+
+    if (task.important) {
       importantStar.innerHTML = '&#9733;';
       importantStar.style.color = '#fec811';
     } else {
       importantStar.innerHTML = '&#9734;';
     }
-    importantStar.addEventListener('click', () =>
-      addToImportant(projectTasks[i], importantStar),
+
+    importantStar.addEventListener('click', (event) =>
+      updateImportantTask(event, task),
     );
 
     const editContainer = document.createElement('div');
     editContainer.classList.add('edit-options');
+    taskDiv.appendChild(editContainer);
     editContainer.addEventListener('click', () =>
       showEditOptions(taskDiv),
     );
 
     const editIcons = document.createElement('div');
     editIcons.classList.add('edit-icons');
+    editContainer.appendChild(editIcons);
+
     for (let j = 0; j < 3; j++) {
       const dot = document.createElement('span');
       dot.classList.add('dot');
@@ -123,63 +142,22 @@ function showTasks(projectTasks) {
 
     const optionsButtons = document.createElement('div');
     optionsButtons.classList.add('options-buttons');
+    editContainer.appendChild(optionsButtons);
 
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.classList.add('delete-project-button');
     deleteTaskButton.textContent = 'Delete';
-    deleteTaskButton.addEventListener('click', () =>
-      deleteTask(projectTasks, i),
-    );
+    optionsButtons.appendChild(deleteTaskButton);
+    
 
     const editTaskButton = document.createElement('button');
     editTaskButton.classList.add('rename-project-button');
     editTaskButton.textContent = 'Edit';
-    editTaskButton.addEventListener('click', () => showEditForm(taskDiv, projectTasks[i]))
-
-    optionsButtons.appendChild(deleteTaskButton);
     optionsButtons.appendChild(editTaskButton);
-    editContainer.appendChild(editIcons);
-    editContainer.appendChild(optionsButtons);
+    editTaskButton.addEventListener('click', () => showEditForm(taskDiv, task))
 
-    taskDiv.appendChild(circle);
-    taskInfo.appendChild(taskTitle);
-    taskInfo.appendChild(taskDescription);
-    taskDiv.appendChild(taskInfo);
-    taskDiv.appendChild(taskDate);
-    taskDiv.appendChild(importantStar);
-    taskDiv.appendChild(editContainer);
-    tasksContainer.appendChild(taskDiv);
-  }
+    return taskDiv
 }
-
-function addToImportant(task, importantStar) {
-  if (!task.important) {
-    task.important = true;
-    importantStar.innerHTML = '&#9733;';
-    importantStar.style.color = '#fec811';
-  } else {
-    task.important = false;
-    importantStar.innerHTML = '&#9734;';
-    importantStar.style.color = 'black';
-  }
-  saveToLocalStorage();
-}
-
-function completeTask(task, circle, taskInfo) {
-  if (!task.completed) {
-    task.completed = true;
-    circle.classList.add('circle-completed');
-    circle.textContent = '✓'
-    taskInfo.classList.add('completed-task')
-  } else { 
-    task.completed = false;
-    circle.classList.remove('circle-completed')
-    circle.textContent = ''
-    taskInfo.classList.remove('completed-task')
-  }
-  saveToLocalStorage()
-}
-
 
 
 function findSelectedProject() {
