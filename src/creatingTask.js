@@ -58,6 +58,7 @@ function closeForm() {
   document.getElementById('task-date').value = '';
 }
 
+// Show tasks for selected project
 function showTasks(project) {
   const taskContainer = document.querySelector('.tasks-container');
   taskContainer.innerHTML = '';
@@ -68,6 +69,7 @@ function showTasks(project) {
   })
 }
 
+// Create task div for selected project
 function createTaskElement(task) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task');
@@ -82,7 +84,7 @@ function createTaskElement(task) {
       circle.classList.add('circle-completed');
       circle.textContent = '✓';
       taskInfo.classList.add('completed-task');
-    } 
+    }
     circle.addEventListener('click', () => completeTask(task, circle, taskInfo))
 
     taskDiv.appendChild(circle);
@@ -112,6 +114,7 @@ function createTaskElement(task) {
     importantStar.classList.add('important-star');
     taskDiv.appendChild(importantStar);
 
+    // If task is important, start is filling with color
     if (task.important) {
       importantStar.innerHTML = '&#9733;';
       importantStar.style.color = '#fec811';
@@ -123,6 +126,7 @@ function createTaskElement(task) {
       updateImportantTask(event, task),
     );
 
+    // Create edit container for dots, and buttons for deleting and editing
     const editContainer = document.createElement('div');
     editContainer.classList.add('edit-options');
     taskDiv.appendChild(editContainer);
@@ -130,15 +134,9 @@ function createTaskElement(task) {
       showEditOptions(taskDiv),
     );
 
-    const editIcons = document.createElement('div');
-    editIcons.classList.add('edit-icons');
+    // Create three dots
+    const editIcons = createEditIcons()
     editContainer.appendChild(editIcons);
-
-    for (let j = 0; j < 3; j++) {
-      const dot = document.createElement('span');
-      dot.classList.add('dot');
-      editIcons.appendChild(dot);
-    }
 
     const optionsButtons = document.createElement('div');
     optionsButtons.classList.add('options-buttons');
@@ -149,7 +147,6 @@ function createTaskElement(task) {
     deleteTaskButton.textContent = 'Delete';
     optionsButtons.appendChild(deleteTaskButton);
     
-
     const editTaskButton = document.createElement('button');
     editTaskButton.classList.add('rename-project-button');
     editTaskButton.textContent = 'Edit';
@@ -159,10 +156,21 @@ function createTaskElement(task) {
     return taskDiv
 }
 
-
 function findSelectedProject() {
   const selected = document.querySelector('.selected');
   return selected.dataset.project;
 }
 
-export { createTaskEvents, showTasks };
+// Create three dots for accesing editing options for task, and project
+function createEditIcons() {
+  const editIcons = document.createElement('div');
+  editIcons.classList.add('edit-icons')
+  for (let j = 0; j < 3; j++) {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    editIcons.appendChild(dot);
+  }
+  return editIcons
+}
+
+export { createTaskEvents, showTasks, createEditIcons };

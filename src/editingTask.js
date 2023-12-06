@@ -47,8 +47,6 @@ function showEditForm() {
 }
 
 function populateEditForm() {
-
-  
   document.getElementById('task-title').value = projectDetails.title;
   document.getElementById('task-description').value = projectDetails.description;
   document.getElementById('task-date').value = projectDetails.date
@@ -62,10 +60,45 @@ function closeEditTaskForm() {
   editForm.style.display = 'none'
 }
 
+function styleImportantTask(e) {
+    importantStar.innerHTML = '&#9733;';
+    importantStar.style.color = '#fec811';
+}
+
+function updateImportantTask(event, task) {
+  if (!task.important) {
+    task.important = true;
+    event.target.innerHTML = '&#9733;';
+    event.target.style.color = '#fec811';
+  } else {
+    task.important = false;
+    event.target.innerHTML = '&#9734;';
+    event.target.style.color = 'black';
+  }
+  saveToLocalStorage();
+}
+
+
+function completeTask(task, circle, taskInfo) {
+  if (!task.completed) {
+    task.completed = true;
+    circle.classList.add('circle-completed');
+    circle.textContent = '✓'
+    taskInfo.classList.add('completed-task')
+  } else { 
+    task.completed = false;
+    circle.classList.remove('circle-completed')
+    circle.textContent = ''
+    taskInfo.classList.remove('completed-task')
+  }
+  saveToLocalStorage()
+}
+
+
 function deleteTask(project, index) {
   project.splice(index, 1);
   showTasks(project);
   saveToLocalStorage();
 }
 
-export { showEditOptions, deleteTask, showEditForm }
+export { showEditOptions, deleteTask, showEditForm, updateImportantTask, completeTask, styleImportantTask }
