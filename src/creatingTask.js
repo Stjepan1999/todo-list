@@ -1,8 +1,8 @@
 import { allProjects, saveToLocalStorage } from './creatingProject';
-import { showEditOptions, deleteTask, showEditForm, updateImportantTask, completeTask, styleImportantTask } from './editingTask';
+import { showEditOptions, deleteTask, showEditForm, updateImportantTask, updateCompletedTask } from './editingTask';
 
 // Get task ID for tasks, or create default one
-let taskID = parseInt(localStorage.getItem('projectID')) || 0;
+let taskID = parseInt(localStorage.getItem('taskID')) || 0;
 
 function createTaskEvents() {
   const showFormButton = document.querySelector('.create-task-button');
@@ -86,7 +86,7 @@ function createTaskElement(task) {
       circle.textContent = '✓';
       taskInfo.classList.add('completed-task');
     }
-    circle.addEventListener('click', () => completeTask(task, circle, taskInfo))
+    circle.addEventListener('click', (event) => updateCompletedTask(event, task))
 
     taskDiv.appendChild(circle);
     taskDiv.appendChild(taskInfo);
@@ -114,13 +114,12 @@ function createTaskElement(task) {
     const importantStar = document.createElement('div');
     importantStar.classList.add('important-star');
     taskDiv.appendChild(importantStar);
+    importantStar.innerHTML = '&#9734';
 
-    // If task is important, start is filling with color
+    // If task is important, star is filled with color
     if (task.important) {
       importantStar.innerHTML = '&#9733;';
       importantStar.style.color = '#fec811';
-    } else {
-      importantStar.innerHTML = '&#9734;';
     }
 
     importantStar.addEventListener('click', (event) =>
@@ -147,6 +146,7 @@ function createTaskElement(task) {
     deleteTaskButton.classList.add('delete-project-button');
     deleteTaskButton.textContent = 'Delete';
     optionsButtons.appendChild(deleteTaskButton);
+    deleteTaskButton.addEventListener('click', () => deleteTask(task.id))
     
     const editTaskButton = document.createElement('button');
     editTaskButton.classList.add('rename-project-button');
@@ -177,4 +177,4 @@ function createEditIcons() {
   return editIcons
 }
 
-export { createTaskEvents, showTasks, createEditIcons, taskID };
+export { createTaskEvents, showTasks, createEditIcons, taskID, findSelectedProject };

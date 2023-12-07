@@ -1,5 +1,5 @@
 import { saveToLocalStorage, allProjects } from "./creatingProject";
-import { showTasks } from "./creatingTask";
+import { showTasks, findSelectedProject } from "./creatingTask";
 
 function showEditOptions(editContainer) {
     const optionsButtons = editContainer.querySelector('.options-buttons');
@@ -60,45 +60,42 @@ function closeEditTaskForm() {
   editForm.style.display = 'none'
 }
 
-function styleImportantTask(e) {
-    importantStar.innerHTML = '&#9733;';
-    importantStar.style.color = '#fec811';
-}
+
 
 function updateImportantTask(event, task) {
-  if (!task.important) {
-    task.important = true;
-    event.target.innerHTML = '&#9733;';
-    event.target.style.color = '#fec811';
-  } else {
-    task.important = false;
-    event.target.innerHTML = '&#9734;';
-    event.target.style.color = 'black';
-  }
+  task.important = !task.important;
+  
+  event.target.innerHTML = task.important ? '&#9733;' : '&#9734;';
+  event.target.style.color = task.important ? '#fec811' : 'black';
+
   saveToLocalStorage();
 }
 
+// Update completed status of task
+function updateCompletedTask(event, task) {
+  // Div for task title and description
+  const taskInfoDiv = event.target.nextElementSibling
 
-function completeTask(task, circle, taskInfo) {
-  if (!task.completed) {
-    task.completed = true;
-    circle.classList.add('circle-completed');
-    circle.textContent = '✓'
-    taskInfo.classList.add('completed-task')
-  } else { 
-    task.completed = false;
-    circle.classList.remove('circle-completed')
-    circle.textContent = ''
-    taskInfo.classList.remove('completed-task')
-  }
+  task.completed = !task.completed;
+  event.target.classList.toggle('circle-completed')
+  event.target.textContent = task.completed ? '✓' : ''
+  taskInfoDiv.classList.toggle('completed-task')
+
   saveToLocalStorage()
 }
 
+function deleteTask(taskID) {
+  // Find selected project index
+  const index = findSelectedProject();
+  const project = allProjects[index].tasks;
 
-function deleteTask(project, index) {
-  project.splice(index, 1);
-  showTasks(project);
-  saveToLocalStorage();
+  // Find index of task in selected project object
+  const selectedTask = project.findIndex(task => task.id === taskID)
+
+  // Delete selected task from object and refresh task list
+  project.splice(selectedTask, 1)
+  showTasks(project)
+  saveToLocalStorage()
 }
 
-export { showEditOptions, deleteTask, showEditForm, updateImportantTask, completeTask, styleImportantTask }
+export { showEditOptions, deleteTask, showEditForm, updateImportantTask, updateCompletedTask }

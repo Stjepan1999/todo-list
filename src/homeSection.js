@@ -16,11 +16,17 @@ function showHomeSectionTile() {
   importantTasks.addEventListener('click', (event) => showImportantTasks(event));
 
   showAllTasks();
+  const allTasksTile = document.getElementById('all-tasks');
+  allTasksTile.classList.add('selected')
 }
 
 function showAllTasks(event) {
   showTitle('All Tasks');
-  selectHomeSectionTile(event)
+
+  // If task tile is clicked, because when page loads it gets selected class by default
+  if (event) {
+    selectHomeSectionTile(event)
+  }
   const allTasks = [];
 
   if (allProjects.length > 0) {
@@ -32,6 +38,7 @@ function showAllTasks(event) {
   }
   showTasks(allTasks);
 }
+
 
 function showTodayTasks(event) {
   showTitle('Today');
