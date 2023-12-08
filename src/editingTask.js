@@ -28,36 +28,46 @@ function showEditOptions(editContainer) {
     document.body.addEventListener('click', hideOptions);
   }
 
-function showEditForm() {
-  const selectedTask = document.querySelector('.selected-task');
+
+function duplicateForm() {
+  const form = document.querySelector('.add-task-form');
+  const editForm = form.cloneNode(true);
+  editForm.classList.add('active')
+  editForm.classList.remove('hidden');
+  return editForm
+}
+
+
+function showEditForm(event) {
+  const selectedTask = event.target.closest('.task');
   selectedTask.classList.add('hidden');
 
-  const editForm = document.querySelector('.add-task-form')
-  editForm.style.display = "block"
+  const taskContainer = document.querySelector('.tasks-container')
+
+  const editForm = duplicateForm()
 
   const saveButton = editForm.querySelector('.button.add-task');
   saveButton.textContent = 'Save';
   
   const cancelButton = editForm.querySelector('.button.close-task-form')
-  cancelButton.addEventListener('click', closeEditTaskForm)
+  cancelButton.addEventListener('click', () => closeEditTaskForm(selectedTask))
 
   // Replace selected task with edit form
-  selectedTask.parentElement.appendChild(editForm);
+  taskContainer.insertBefore(editForm, selectedTask);
   populateEditForm()
 }
 
 function populateEditForm() {
-  document.getElementById('task-title').value = projectDetails.title;
-  document.getElementById('task-description').value = projectDetails.description;
-  document.getElementById('task-date').value = projectDetails.date
+  document.getElementById('task-title').value = 'title';
+  document.getElementById('task-description').value = 'desc'
+  document.getElementById('task-date').value = '21-05-2023'
 }
 
-function closeEditTaskForm() {
-  const selectedTask = document.querySelector('.selected-task');
-  selectedTask.classList.remove('hidden');
-  
-  const editForm = document.querySelector('.add-task-form');
-  editForm.style.display = 'none'
+function closeEditTaskForm(task) {  
+  const editForm = document.querySelector('.add-task-form.active');
+  editForm.remove()
+
+  task.classList.remove('hidden')
 }
 
 
