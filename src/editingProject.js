@@ -3,6 +3,7 @@ import {
   allProjects,
   saveToLocalStorage,
 } from './creatingProject';
+import { findSelectedProject } from './creatingTask';
 import { showAllTasks } from './homeSection';
 
 function deleteProject(id) {
@@ -10,7 +11,6 @@ function deleteProject(id) {
   allProjects.splice(index, 1);
   saveToLocalStorage();
   showProjects();
-  showAllTasks();
 }
 
 function showEditOptions(editContainer) {
@@ -108,8 +108,7 @@ function closeRenameForm() {
 
 function saveProjectTitle() {
   // Get selected project index
-  const selectedProject = document.querySelector('.selected');
-  const projectIndex = selectedProject.dataset.project;
+  const projectIndex = findSelectedProject()
 
   const newProjectTitle = document.getElementById('rename-project-input').value;
 

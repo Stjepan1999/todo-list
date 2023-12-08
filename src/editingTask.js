@@ -1,5 +1,5 @@
 import { saveToLocalStorage, allProjects } from "./creatingProject";
-import { showTasks, findSelectedProject } from "./creatingTask";
+import { showTasks, findSelectedProject, taskID } from "./creatingTask";
 
 function showEditOptions(editContainer) {
     const optionsButtons = editContainer.querySelector('.options-buttons');
@@ -29,38 +29,66 @@ function showEditOptions(editContainer) {
   }
 
 
+// Duplicate form for creating task, but this is for editing
 function duplicateForm() {
   const form = document.querySelector('.add-task-form');
   const editForm = form.cloneNode(true);
-  editForm.classList.add('active')
   editForm.classList.remove('hidden');
+  editForm.classList.add('active')
   return editForm
 }
 
-
+// Hide selected form and show edit form
 function showEditForm(event) {
+  const taskContainer = document.querySelector('.tasks-container')
+
   const selectedTask = event.target.closest('.task');
   selectedTask.classList.add('hidden');
 
-  const taskContainer = document.querySelector('.tasks-container')
+  const selectedTaskID = Number(selectedTask.getAttribute('data-id'));
+  const task = findTaskById(selectedTaskID);
 
   const editForm = duplicateForm()
 
   const saveButton = editForm.querySelector('.button.add-task');
   saveButton.textContent = 'Save';
+  saveButton.addEventListener('click', () => saveTask(task, selectedTask))
   
   const cancelButton = editForm.querySelector('.button.close-task-form')
   cancelButton.addEventListener('click', () => closeEditTaskForm(selectedTask))
 
   // Replace selected task with edit form
   taskContainer.insertBefore(editForm, selectedTask);
-  populateEditForm()
+  populateEditForm(task)
 }
 
-function populateEditForm() {
-  document.getElementById('task-title').value = 'title';
-  document.getElementById('task-description').value = 'desc'
-  document.getElementById('task-date').value = '21-05-2023'
+// Find selected task in allProjects array
+function findTaskById(selectedTaskID) {
+  for (const project of allProjects) {
+    const foundTask = project.tasks.find(task => task.id === selectedTaskID);
+    return foundTask
+  }
+}
+
+function populateEditForm(task) {
+  document.getElementById('task-title').value = task.title;
+  document.getElementById('task-description').value = task.description;
+  document.getElementById('task-date').value = task.date;
+}
+
+// Save task after editing
+function saveTask(task, selectedTaskDiv) {
+  task.title = document.getElementById('task-title').value;
+  task.description = document.getElementById('task-description').value;
+  task.date = document.getElementById('task-date').value;
+
+  // Find project where task is stored
+  const index = findSelectedProject();
+  const project = allProjects[index].tasks;
+
+  saveToLocalStorage();
+  closeEditTaskForm(selectedTaskDiv);
+  showTasks(project);
 }
 
 function closeEditTaskForm(task) {  
@@ -69,8 +97,6 @@ function closeEditTaskForm(task) {
 
   task.classList.remove('hidden')
 }
-
-
 
 function updateImportantTask(event, task) {
   task.important = !task.important;

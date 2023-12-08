@@ -152,7 +152,7 @@ function createTaskElement(task) {
     editTaskButton.classList.add('rename-project-button');
     editTaskButton.textContent = 'Edit';
     optionsButtons.appendChild(editTaskButton);
-    editTaskButton.addEventListener('click', () => showEditForm(taskDiv, task))
+    editTaskButton.addEventListener('click', (event) => showEditForm(event))
 
     return taskDiv
 }

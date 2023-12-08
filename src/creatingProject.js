@@ -148,7 +148,6 @@ function selectProject(event, project) {
     }
   });
 
-  // Add selected class to clicked project
   projectDiv.classList.add('selected');
 
   // Update title of main section where tasks are showed
