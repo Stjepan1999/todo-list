@@ -366,7 +366,25 @@ body {
   background-color: red;
 }
 
+/* Footer Section*/
 .footer {
   grid-area: footer;
   background-color: #f2f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+/* Link to GitHub account*/
+.footer > a {
+  text-decoration: none;
+  color: black;
+}
+.footer > a:visited {
+  color: black;
+}
+/* GitHub icon */
+.footer > a > img {
+  width: 35px;
+  height: 35px;
 }
