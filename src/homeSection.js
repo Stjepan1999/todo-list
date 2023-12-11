@@ -13,11 +13,13 @@ function showHomeSectionTile() {
   thisWeekTasks.addEventListener('click', (event) => showThisWeekTasks(event));
 
   const importantTasks = document.getElementById('important');
-  importantTasks.addEventListener('click', (event) => showImportantTasks(event));
+  importantTasks.addEventListener('click', (event) =>
+    showImportantTasks(event),
+  );
 
   showAllTasks();
   const allTasksTile = document.getElementById('all-tasks');
-  allTasksTile.classList.add('selected')
+  allTasksTile.classList.add('selected');
 }
 
 function showAllTasks(event) {
@@ -25,7 +27,7 @@ function showAllTasks(event) {
 
   // If task tile is clicked, because when page loads it gets selected class by default
   if (event) {
-    selectHomeSectionTile(event)
+    selectHomeSectionTile(event);
   }
   const allTasks = [];
 
@@ -39,10 +41,11 @@ function showAllTasks(event) {
   showTasks(allTasks);
 }
 
-
 function showTodayTasks(event) {
   showTitle('Today');
-  selectHomeSectionTile(event)
+  if (event) {
+    selectHomeSectionTile(event);
+  }
   const todayTasks = [];
   const rawDate = new Date();
   const todayDate = format(rawDate, 'yyyy-MM-dd');
@@ -61,7 +64,9 @@ function showTodayTasks(event) {
 
 function showThisWeekTasks(event) {
   showTitle('Next 7 Days');
-  selectHomeSectionTile(event)
+  if (event) {
+    selectHomeSectionTile(event);
+  }
   const thisWeekTasks = [];
 
   // Array for storing this week dates
@@ -86,7 +91,9 @@ function showThisWeekTasks(event) {
 
 function showImportantTasks(event) {
   showTitle('Important');
-  selectHomeSectionTile(event)
+  if (event) {
+    selectHomeSectionTile(event);
+  }
   const importantTasks = [];
   if (allProjects.length > 0) {
     allProjects.forEach((project) => {
@@ -103,7 +110,7 @@ function showImportantTasks(event) {
 // Update task header each time selected project change
 function showTitle(titleName) {
   const showFormButton = document.querySelector('.create-task-button');
-  showFormButton.classList.add('hidden')
+  showFormButton.classList.add('hidden');
 
   const title = document.querySelector('.title');
   title.textContent = titleName;
@@ -116,11 +123,18 @@ function selectHomeSectionTile(event) {
   // If other project/tile have selected class, remove it
   document.querySelectorAll('.selected').forEach((tile) => {
     if (tile !== tileDiv) {
-      tile.classList.remove('selected')
+      tile.classList.remove('selected');
     }
-  })
+  });
   // Add selected class to clicked element
-  tileDiv.classList.add('selected')
+  tileDiv.classList.add('selected');
 }
 
-export { showHomeSectionTile, showAllTasks, showTitle };
+export {
+  showHomeSectionTile,
+  showAllTasks,
+  showTitle,
+  showTodayTasks,
+  showThisWeekTasks,
+  showImportantTasks,
+};

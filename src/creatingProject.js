@@ -47,19 +47,19 @@ function createNewProject() {
 function saveToLocalStorage() {
   localStorage.setItem('allProjects', JSON.stringify(allProjects));
   localStorage.setItem('projectID', projectID.toString());
-  localStorage.setItem('taskID', taskID.toString())
+  localStorage.setItem('taskID', taskID.toString());
 }
 
 // Show form for adding projects
 function showForm() {
   const addProjectForm = document.querySelector('.add-project-form');
-  addProjectForm.classList.remove('hidden')
+  addProjectForm.classList.remove('hidden');
 }
 
 // Hide form for adding projects
 function closeForm() {
   const addProjectForm = document.querySelector('.add-project-form');
-  addProjectForm.classList.add('hidden')
+  addProjectForm.classList.add('hidden');
   document.getElementById('project-title').value = '';
 }
 
@@ -79,63 +79,59 @@ function showProjects() {
 
   allProjects.forEach((project) => {
     const projectDiv = createProjectElement(project);
-    projectsListDiv.appendChild(projectDiv)
-  })
+    projectsListDiv.appendChild(projectDiv);
+  });
 }
 
 // Create project div for every project
 function createProjectElement(project) {
-    const projectDiv = document.createElement('div');
-    projectDiv.classList.add('project');
-    projectDiv.dataset.id = project.id;
-    projectDiv.addEventListener('click', (event) =>
-      selectProject(event, project),
-    );
+  const projectDiv = document.createElement('div');
+  projectDiv.classList.add('project');
+  projectDiv.dataset.id = project.id;
+  projectDiv.addEventListener('click', (event) =>
+    selectProject(event, project),
+  );
 
-    const projectIcon = document.createElement('img');
-    projectIcon.classList.add('project-icon');
-    projectIcon.src = './images/project-icon.png';
-    projectDiv.appendChild(projectIcon);
+  const projectIcon = document.createElement('img');
+  projectIcon.classList.add('project-icon');
+  projectIcon.src = './images/project-icon.png';
+  projectDiv.appendChild(projectIcon);
 
-    const projectTitle = document.createElement('div');
-    projectTitle.classList.add('project-list-title');
-    projectTitle.textContent = project.title;
-    projectDiv.appendChild(projectTitle);
+  const projectTitle = document.createElement('div');
+  projectTitle.classList.add('project-list-title');
+  projectTitle.textContent = project.title;
+  projectDiv.appendChild(projectTitle);
 
-    // Create edit container for editing or deleting project
-    const editContainer = document.createElement('div');
-    editContainer.classList.add('edit-options');
-    projectDiv.appendChild(editContainer);
-    editContainer.addEventListener('click', () =>
-      showEditOptions(projectDiv),
-    );
+  // Create edit container for editing or deleting project
+  const editContainer = document.createElement('div');
+  editContainer.classList.add('edit-options');
+  projectDiv.appendChild(editContainer);
+  editContainer.addEventListener('click', () => showEditOptions(projectDiv));
 
-    // Create three dots
-    const editIcons = createEditIcons();
-    editContainer.appendChild(editIcons)
+  // Create three dots
+  const editIcons = createEditIcons();
+  editContainer.appendChild(editIcons);
 
-    const optionsButtons = document.createElement('div');
-    optionsButtons.classList.add('options-buttons');
-    editContainer.appendChild(optionsButtons);
+  const optionsButtons = document.createElement('div');
+  optionsButtons.classList.add('options-buttons');
+  editContainer.appendChild(optionsButtons);
 
+  const deleteProjectButton = document.createElement('button');
+  deleteProjectButton.classList.add('delete-project-button');
+  deleteProjectButton.textContent = 'Delete';
+  optionsButtons.appendChild(deleteProjectButton);
+  deleteProjectButton.addEventListener('click', () =>
+    deleteProject(project.id),
+  );
 
-    const deleteProjectButton = document.createElement('button');
-    deleteProjectButton.classList.add('delete-project-button');
-    deleteProjectButton.textContent = 'Delete';
-    optionsButtons.appendChild(deleteProjectButton);
-    deleteProjectButton.addEventListener('click', () =>
-      deleteProject(project.id),
-    );
+  const renameProjectButton = document.createElement('button');
+  renameProjectButton.classList.add('rename-project-button');
+  renameProjectButton.textContent = 'Rename';
+  optionsButtons.appendChild(renameProjectButton);
+  renameProjectButton.addEventListener('click', () => showRenameForm());
 
-    const renameProjectButton = document.createElement('button');
-    renameProjectButton.classList.add('rename-project-button');
-    renameProjectButton.textContent = 'Rename';
-    optionsButtons.appendChild(renameProjectButton);
-    renameProjectButton.addEventListener('click', () => showRenameForm());
-
-    return projectDiv
-  }
-
+  return projectDiv;
+}
 
 // Add selected class to the project, and display tasks for that project
 function selectProject(event, project) {
@@ -155,13 +151,12 @@ function selectProject(event, project) {
   title.textContent = project.title;
 
   // Show tasks of project that is clicked
-  showTasks(project.tasks)
+  showTasks(project.tasks);
 
   // Show form button for adding new tasks only in projects
   const showTaskFormButton = document.querySelector('.create-task-button');
-  showTaskFormButton.classList.remove('hidden')
+  showTaskFormButton.classList.remove('hidden');
 }
-
 
 export {
   addEventListeners,

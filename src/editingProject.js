@@ -108,7 +108,7 @@ function closeRenameForm() {
 
 function saveProjectTitle() {
   // Get selected project index
-  const projectIndex = findSelectedProject()
+  const projectIndex = findSelectedProject();
 
   const newProjectTitle = document.getElementById('rename-project-input').value;
 
