@@ -4,8 +4,9 @@
   "description": "ToDo-List web application",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx webpack --watch --mode=development",
+    "build": "webpack --mode=production"
   },
   "author": "",
   "license": "ISC",
