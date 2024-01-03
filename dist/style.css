@@ -24,7 +24,7 @@ body {
 .header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   grid-area: header;
   background-color: #f2f3f5;
   border-bottom: 2px solid #2bbd67;
@@ -35,9 +35,31 @@ body {
   width: 70px;
   height: 70px;
 }
+.header > div {
+  margin-right: auto;
+}
 /*Change color of "List" text*/
 .header > div > span {
   color: #2bbd67;
+}
+.hide-sidebar {
+  justify-self: flex-start;
+  display: flex;
+  margin-left: 10px;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.hide-sidebar:hover {
+  cursor: pointer;
+  background-color: #d9d9d9;
+}
+.hide-sidebar > span {
+  width: 25px;
+  height: 3px;
+  border-radius: 10px;
+  background-color: black;
 }
 
 /*Sidebar*/

@@ -1,6 +1,6 @@
 import { format, addDays } from 'date-fns';
-import { showTasks } from './creatingTask';
-import { allProjects } from './creatingProject';
+import { showTasks } from './task';
+import { allProjects } from './project';
 
 function showHomeSectionTile() {
   const allTasks = document.getElementById('all-tasks');
@@ -13,9 +13,7 @@ function showHomeSectionTile() {
   thisWeekTasks.addEventListener('click', (event) => showThisWeekTasks(event));
 
   const importantTasks = document.getElementById('important');
-  importantTasks.addEventListener('click', (event) =>
-    showImportantTasks(event),
-  );
+  importantTasks.addEventListener('click', (event) => showImportantTasks(event));
 
   showAllTasks();
   const allTasksTile = document.getElementById('all-tasks');
@@ -130,11 +128,4 @@ function selectHomeSectionTile(event) {
   tileDiv.classList.add('selected');
 }
 
-export {
-  showHomeSectionTile,
-  showAllTasks,
-  showTitle,
-  showTodayTasks,
-  showThisWeekTasks,
-  showImportantTasks,
-};
+export { showHomeSectionTile, showAllTasks, showTitle, showTodayTasks, showThisWeekTasks, showImportantTasks };
