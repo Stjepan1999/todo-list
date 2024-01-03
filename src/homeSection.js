@@ -67,7 +67,6 @@ function showThisWeekTasks(event) {
   }
   const thisWeekTasks = [];
 
-  // Array for storing this week dates
   const thisWeekDates = [];
   const todayDate = new Date();
   for (let i = 0; i < 7; i++) {
@@ -105,7 +104,6 @@ function showImportantTasks(event) {
   showTasks(importantTasks);
 }
 
-// Update task header each time selected project change
 function showTitle(titleName) {
   const showFormButton = document.querySelector('.create-task-button');
   showFormButton.classList.add('hidden');
@@ -118,13 +116,11 @@ function showTitle(titleName) {
 function selectHomeSectionTile(event) {
   const tileDiv = event.target.closest('.tile');
 
-  // If other project/tile have selected class, remove it
   document.querySelectorAll('.selected').forEach((tile) => {
     if (tile !== tileDiv) {
       tile.classList.remove('selected');
     }
   });
-  // Add selected class to clicked element
   tileDiv.classList.add('selected');
 }
 

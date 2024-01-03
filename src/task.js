@@ -1,7 +1,6 @@
 import { allProjects, saveToLocalStorage } from './project';
 import { showAllTasks, showTodayTasks, showImportantTasks, showThisWeekTasks } from './homeSection';
 
-// Get task ID for tasks, or create default one
 let taskID = parseInt(localStorage.getItem('taskID')) || 0;
 
 function createTaskEvents() {
@@ -15,7 +14,7 @@ function createTaskEvents() {
   addTaskButton.addEventListener('click', createNewTask);
 }
 
-function CreateTask(title, description, date) {
+function createTask(title, description, date) {
   return {
     id: taskID++,
     title,
@@ -31,9 +30,8 @@ function createNewTask() {
   const taskDescription = document.getElementById('task-description').value;
   const taskDate = document.getElementById('task-date').value;
 
-  const newTask = CreateTask(taskTitle, taskDescription, taskDate);
+  const newTask = createTask(taskTitle, taskDescription, taskDate);
 
-  // Find index of selected project, and add task to that project
   const index = findSelectedProject();
   const project = allProjects[index].tasks;
   project.push(newTask);
@@ -43,13 +41,11 @@ function createNewTask() {
   showTasks(project);
 }
 
-// Show form for adding task
 function showForm() {
   const taskForm = document.querySelector('.add-task-form');
   taskForm.classList.remove('hidden');
 }
 
-// Hide form for adding task
 function closeForm() {
   const taskForm = document.querySelector('.add-task-form');
   taskForm.classList.add('hidden');
@@ -59,22 +55,20 @@ function closeForm() {
   document.getElementById('task-date').value = '';
 }
 
-// Show tasks for selected project
 function showTasks(project) {
   const taskContainer = document.querySelector('.tasks-container');
   taskContainer.innerHTML = '';
 
   project.forEach((task) => {
-    const taskDiv = createTaskElement(task);
-    taskContainer.appendChild(taskDiv);
+    const taskElement = createTaskElement(task);
+    taskContainer.appendChild(taskElement);
   });
 }
 
-// Create task div for selected project
 function createTaskElement(task) {
-  const taskDiv = document.createElement('div');
-  taskDiv.classList.add('task');
-  taskDiv.dataset.id = task.id;
+  const taskElement = document.createElement('div');
+  taskElement.classList.add('task');
+  taskElement.dataset.id = task.id;
 
   const taskInfo = document.createElement('div');
   taskInfo.classList.add('task-info');
@@ -88,8 +82,8 @@ function createTaskElement(task) {
   }
   circle.addEventListener('click', (event) => updateCompletedTask(event, task));
 
-  taskDiv.appendChild(circle);
-  taskDiv.appendChild(taskInfo);
+  taskElement.appendChild(circle);
+  taskElement.appendChild(taskInfo);
 
   const taskTitle = document.createElement('div');
   taskTitle.classList.add('task-title');
@@ -103,7 +97,7 @@ function createTaskElement(task) {
 
   const taskDate = document.createElement('div');
   taskDate.classList.add('date');
-  taskDiv.appendChild(taskDate);
+  taskElement.appendChild(taskDate);
 
   if (task.date === '') {
     taskDate.textContent = 'No Due Date';
@@ -111,14 +105,17 @@ function createTaskElement(task) {
     taskDate.textContent = task.date;
   }
 
+  const emptyStarSymbol = '&#9734';
+  const filledStarSymbol = '&#9733';
+
   const importantStar = document.createElement('div');
   importantStar.classList.add('important-star');
-  taskDiv.appendChild(importantStar);
-  importantStar.innerHTML = '&#9734';
+  taskElement.appendChild(importantStar);
+  importantStar.innerHTML = emptyStarSymbol;
 
   // If task is important, star is filled with color
   if (task.important) {
-    importantStar.innerHTML = '&#9733;';
+    importantStar.innerHTML = filledStarSymbol;
     importantStar.style.color = '#fec811';
   }
 
@@ -127,8 +124,8 @@ function createTaskElement(task) {
   // Create edit container for dots, and buttons for deleting and editing
   const editContainer = document.createElement('div');
   editContainer.classList.add('edit-options');
-  taskDiv.appendChild(editContainer);
-  editContainer.addEventListener('click', () => showEditOptions(taskDiv));
+  taskElement.appendChild(editContainer);
+  editContainer.addEventListener('click', () => showEditOptions(taskElement));
 
   // Create three dots
   const editIcons = createEditIcons();
@@ -150,10 +147,9 @@ function createTaskElement(task) {
   optionsButtons.appendChild(editTaskButton);
   editTaskButton.addEventListener('click', (event) => showEditForm(event));
 
-  return taskDiv;
+  return taskElement;
 }
 
-// Find selected project with 'selected' class
 function findSelectedProject() {
   const selected = document.querySelector('.selected');
   const projectID = Number(selected.dataset.id);
@@ -177,7 +173,6 @@ function showEditOptions(editContainer) {
   const optionsButtons = editContainer.querySelector('.options-buttons');
   optionsButtons.classList.toggle('visible');
 
-  // Close all open options before toggling the current one
   document.querySelectorAll('.visible').forEach((container) => {
     if (container !== editContainer) {
       container.classList.remove('visible');
@@ -241,7 +236,6 @@ function showEditForm(event) {
   populateEditForm(task);
 }
 
-// Find selected task in allProjects array
 function findTaskById(selectedTaskID) {
   for (const project of allProjects) {
     const foundTask = project.tasks.find((task) => task.id === selectedTaskID);
@@ -257,14 +251,13 @@ function populateEditForm(task) {
   document.getElementById('task-date').value = task.date;
 }
 
-// Save task after editing
-function saveTask(task, selectedTaskDiv) {
+function saveTask(task, selectedTaskElement) {
   task.title = document.getElementById('task-title').value;
   task.description = document.getElementById('task-description').value;
   task.date = document.getElementById('task-date').value;
 
   saveToLocalStorage();
-  closeEditTaskForm(selectedTaskDiv);
+  closeEditTaskForm(selectedTaskElement);
 
   // Logic for showing task from Home Section
   const selectedTile = document.querySelector('.selected');
@@ -284,7 +277,7 @@ function saveTask(task, selectedTaskDiv) {
     default:
       break;
   }
-  // Find project where task is stored
+
   const index = findSelectedProject();
   const project = allProjects[index].tasks;
   showTasks(project);
@@ -306,28 +299,24 @@ function updateImportantTask(event, task) {
   saveToLocalStorage();
 }
 
-// Update completed status of task
 function updateCompletedTask(event, task) {
   // Div for task title and description
-  const taskInfoDiv = event.target.nextElementSibling;
+  const taskInfoElement = event.target.nextElementSibling;
 
   task.completed = !task.completed;
   event.target.classList.toggle('circle-completed');
   event.target.textContent = task.completed ? '✓' : '';
-  taskInfoDiv.classList.toggle('completed-task');
+  taskInfoElement.classList.toggle('completed-task');
 
   saveToLocalStorage();
 }
 
 function deleteTask(taskID) {
-  // Find selected project index
   const index = findSelectedProject();
   const project = allProjects[index].tasks;
 
-  // Find index of task in selected project object
   const selectedTask = project.findIndex((task) => task.id === taskID);
 
-  // Delete selected task from object and refresh task list
   project.splice(selectedTask, 1);
   showTasks(project);
   saveToLocalStorage();
