@@ -10,13 +10,8 @@
   <body>
     <div class="grid-container">
       <div class="header">
-        <div class="hide-sidebar">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>
-        <img src="./images/logo.svg" />
-        <div>ToDo<span>List</span></div>
+        <img src="./images/logo.svg" class="logo" alt="logo" />
+        <div>ToDo<span class="highlight-text">List</span></div>
       </div>
 
       <div class="sidebar">
@@ -52,11 +47,11 @@
                 placeholder="Enter Project Name"
                 required
               />
+              <div>
+                <button class="button add-project">Add</button>
+                <button class="button close-form">Cancel</button>
+              </div>
             </form>
-            <div>
-              <button class="button add-project">Add</button>
-              <button class="button close-form">Cancel</button>
-            </div>
           </div>
           <button class="create-project-button"><img src="./images/add-circle.svg" />Add Project</button>
         </div>
@@ -67,27 +62,35 @@
         <div class="tasks-container"></div>
         <div class="add-task-form hidden">
           <form class="task-form">
-            <label for="task-title">Title: </label>
-            <input type="text" id="task-title" placeholder="What to do?" required />
+            <label for="task-title" class="task-form-label">Title: </label>
+            <input type="text" id="task-title" class="task-form-input" placeholder="What to do?" required />
 
-            <label for="task-description">Details (Optional):</label>
-            <textarea id="task-description" rows="3" placeholder="How to do that?"></textarea>
+            <label for="task-description" class="task-form-label">Details (Optional):</label>
+            <textarea
+              id="task-description"
+              class="task-description-input"
+              rows="3"
+              placeholder="How to do that?"
+            ></textarea>
 
-            <label for="task-date">Date: </label>
-            <input type="date" id="task-date" />
+            <label for="task-date" class="task-form-label">Date: </label>
+            <input type="date" id="task-date" class="task-form-input" />
+
+            <div class="task-buttons">
+              <button type="submit" class="button add-task">Add</button>
+              <button class="button close-task-form">Cancel</button>
+            </div>
           </form>
-          <div class="task-buttons">
-            <button class="button add-task">Add</button>
-            <button class="button close-task-form">Cancel</button>
-          </div>
         </div>
         <button class="create-task-button hidden"><img src="./images/add-circle.svg" />Add Task</button>
       </div>
 
       <div class="footer">
         Created by:
-        <a href="https://github.com/Stjepan1999" target="_blank">Stjepan1999</a>
-        <a href="https://github.com/Stjepan1999/todo-list" target="_blank"><img src="./images/github-icon.svg" /></a>
+        <a href="https://github.com/Stjepan1999" target="_blank" class="footer-link">Stjepan1999</a>
+        <a href="https://github.com/Stjepan1999/todo-list" target="_blank" class="footer-link"
+          ><img src="./images/github-icon.svg" class="github-logo" alt="github logo"
+        /></a>
       </div>
     </div>
     <script src="main.js"></script>
