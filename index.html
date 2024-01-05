@@ -18,19 +18,19 @@
         <div class="home">
           <div class="home-heading">Home</div>
           <div class="tile" id="all-tasks">
-            <img src="./images/inbox.png" />
+            <img src="./images/inbox.png" class="tile-image" alt="inbox icon" />
             <div>All Tasks</div>
           </div>
           <div class="tile" id="today">
-            <img src="./images/today.png" />
+            <img src="./images/today.png" class="tile-image" alt="today icon" />
             <div>Today</div>
           </div>
           <div class="tile" id="this-week">
-            <img src="./images/week.png" />
+            <img src="./images/week.png" class="tile-image" alt="calendar icon" />
             <div>Next 7 Days</div>
           </div>
           <div class="tile" id="important">
-            <img src="./images/star.png" />
+            <img src="./images/star.png" class="tile-image" alt="star icon" />
             <div>Important</div>
           </div>
         </div>
@@ -48,12 +48,14 @@
                 required
               />
               <div>
-                <button class="button add-project">Add</button>
-                <button class="button close-form">Cancel</button>
+                <button class="button button-primary" id="button-add-project">Add</button>
+                <button class="button button-secondary" id="button-close-project-form">Cancel</button>
               </div>
             </form>
           </div>
-          <button class="create-project-button"><img src="./images/add-circle.svg" />Add Project</button>
+          <button class="button-wide button-project" id="button-new-project">
+            <img src="./images/add-circle.svg" />Add Project
+          </button>
         </div>
       </div>
 
@@ -77,12 +79,14 @@
             <input type="date" id="task-date" class="task-form-input" />
 
             <div class="task-buttons">
-              <button type="submit" class="button add-task">Add</button>
-              <button class="button close-task-form">Cancel</button>
+              <button type="submit" class="button button-primary" id="button-add-task">Add</button>
+              <button class="button button-secondary" id="button-close-task-form">Cancel</button>
             </div>
           </form>
         </div>
-        <button class="create-task-button hidden"><img src="./images/add-circle.svg" />Add Task</button>
+        <button class="button-wide button-task hidden" id="button-new-task">
+          <img src="./images/add-circle.svg" />Add Task
+        </button>
       </div>
 
       <div class="footer">
