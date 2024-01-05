@@ -4,13 +4,13 @@ import { showAllTasks, showTodayTasks, showImportantTasks, showThisWeekTasks } f
 let taskID = parseInt(localStorage.getItem('taskID')) || 0;
 
 function createTaskEvents() {
-  const showFormButton = document.querySelector('.create-task-button');
+  const showFormButton = document.getElementById('button-new-task');
   showFormButton.addEventListener('click', () => showForm());
 
-  const closeFormButton = document.querySelector('.button.close-task-form');
+  const closeFormButton = document.getElementById('button-close-task-form');
   closeFormButton.addEventListener('click', () => closeForm());
 
-  const addTaskButton = document.querySelector('.button.add-task');
+  const addTaskButton = document.getElementById('button-add-task');
   addTaskButton.addEventListener('click', createNewTask);
 }
 
@@ -133,16 +133,17 @@ function createTaskElement(task) {
 
   const optionsButtons = document.createElement('div');
   optionsButtons.classList.add('options-buttons');
+  optionsButtons.classList.add('task-options');
   editContainer.appendChild(optionsButtons);
 
   const deleteTaskButton = document.createElement('button');
-  deleteTaskButton.classList.add('delete-project-button');
+  deleteTaskButton.classList.add('button-options');
   deleteTaskButton.textContent = 'Delete';
   optionsButtons.appendChild(deleteTaskButton);
   deleteTaskButton.addEventListener('click', () => deleteTask(task.id));
 
   const editTaskButton = document.createElement('button');
-  editTaskButton.classList.add('rename-project-button');
+  editTaskButton.classList.add('button-options');
   editTaskButton.textContent = 'Edit';
   optionsButtons.appendChild(editTaskButton);
   editTaskButton.addEventListener('click', (event) => showEditForm(event));
@@ -224,11 +225,11 @@ function showEditForm(event) {
   const selectedTaskID = Number(selectedTask.getAttribute('data-id'));
   const task = findTaskById(selectedTaskID);
 
-  const saveButton = editForm.querySelector('.button.add-task');
+  const saveButton = editForm.querySelector('#button-add-task');
   saveButton.textContent = 'Save';
   saveButton.addEventListener('click', () => saveTask(task, selectedTask));
 
-  const cancelButton = editForm.querySelector('.button.close-task-form');
+  const cancelButton = editForm.querySelector('#button-close-task-form');
   cancelButton.addEventListener('click', () => closeEditTaskForm(selectedTask));
 
   // Replace selected task with edit form
@@ -291,9 +292,12 @@ function closeEditTaskForm(task) {
 }
 
 function updateImportantTask(event, task) {
+  const emptyStarSymbol = '&#9734';
+  const filledStarSymbol = '&#9733';
+
   task.important = !task.important;
 
-  event.target.innerHTML = task.important ? '&#9733;' : '&#9734;';
+  event.target.innerHTML = task.important ? filledStarSymbol : emptyStarSymbol;
   event.target.style.color = task.important ? '#fec811' : 'black';
 
   saveToLocalStorage();

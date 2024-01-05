@@ -5,14 +5,14 @@ let projectID = parseInt(localStorage.getItem('projectID')) || 0;
 const allProjects = JSON.parse(localStorage.getItem('allProjects')) || [];
 
 function addEventListeners() {
-  const showFormButton = document.querySelector('.create-project-button');
+  const showFormButton = document.getElementById('button-new-project');
   showFormButton.addEventListener('click', () => showForm());
 
-  const closeFormButton = document.querySelector('.button.close-form');
+  const closeFormButton = document.getElementById('button-close-project-form');
   closeFormButton.addEventListener('click', () => closeForm());
 
-  const addProjectButton = document.querySelector('.button.add-project');
-  addProjectButton.addEventListener('click', () => createNewProject());
+  const addProjectButton = document.getElementById('button-add-project');
+  addProjectButton.addEventListener('click', (event) => createNewProject(event));
 
   showProjects();
 }
@@ -25,7 +25,9 @@ function createProject(title) {
   };
 }
 
-function createNewProject() {
+function createNewProject(event) {
+  event.preventDefault();
+
   if (isFormValid()) {
     const projectTitle = document.getElementById('project-title').value;
     const newProject = createProject(projectTitle);
@@ -100,13 +102,13 @@ function createProjectElement(project) {
   editContainer.appendChild(optionsButtons);
 
   const deleteProjectButton = document.createElement('button');
-  deleteProjectButton.classList.add('delete-project-button');
+  deleteProjectButton.classList.add('button-options');
   deleteProjectButton.textContent = 'Delete';
   optionsButtons.appendChild(deleteProjectButton);
   deleteProjectButton.addEventListener('click', () => deleteProject(project.id));
 
   const renameProjectButton = document.createElement('button');
-  renameProjectButton.classList.add('rename-project-button');
+  renameProjectButton.classList.add('button-options');
   renameProjectButton.textContent = 'Rename';
   optionsButtons.appendChild(renameProjectButton);
   renameProjectButton.addEventListener('click', () => showRenameForm());
@@ -132,7 +134,7 @@ function selectProject(event, project) {
   showTasks(project.tasks);
 
   // Show form button for adding new tasks only in projects
-  const showTaskFormButton = document.querySelector('.create-task-button');
+  const showTaskFormButton = document.querySelector('.button-task');
   showTaskFormButton.classList.remove('hidden');
 }
 
@@ -197,15 +199,15 @@ function showRenameForm() {
   const renameButton = document.createElement('button');
   renameButton.textContent = 'Save';
   renameButton.classList.add('button');
-  renameButton.classList.add('add-project');
+  renameButton.classList.add('button-primary');
   renameButton.style.marginRight = '3px';
-  renameButton.addEventListener('click', saveProjectTitle);
+  renameButton.addEventListener('click', (event) => saveProjectTitle(event));
   editButtons.appendChild(renameButton);
 
   const cancelButton = document.createElement('button');
   cancelButton.textContent = 'Cancel';
   cancelButton.classList.add('button');
-  cancelButton.classList.add('close-form');
+  cancelButton.classList.add('button-secondary');
   cancelButton.addEventListener('click', closeRenameForm);
   editButtons.appendChild(cancelButton);
 
@@ -226,9 +228,9 @@ function closeRenameForm() {
   editContainer.classList.remove('hidden');
 }
 
-function saveProjectTitle() {
+function saveProjectTitle(event) {
+  event.preventDefault();
   const projectIndex = findSelectedProject();
-
   const newProjectTitle = document.getElementById('rename-project-input').value;
 
   allProjects[projectIndex].title = newProjectTitle;

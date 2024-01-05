@@ -105,7 +105,7 @@ function showImportantTasks(event) {
 }
 
 function showTitle(titleName) {
-  const showFormButton = document.querySelector('.create-task-button');
+  const showFormButton = document.querySelector('.button-task');
   showFormButton.classList.add('hidden');
 
   const title = document.querySelector('.title');
