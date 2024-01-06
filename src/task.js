@@ -261,29 +261,7 @@ function saveTask(task, selectedTaskElement) {
 
   saveToLocalStorage();
   closeEditTaskForm(selectedTaskElement);
-
-  // Logic for showing task from Home Section
-  const selectedTile = document.querySelector('.selected');
-  switch (selectedTile.id) {
-    case 'all-tasks':
-      showAllTasks();
-      break;
-    case 'today':
-      showTodayTasks();
-      break;
-    case 'this-week':
-      showThisWeekTasks();
-      break;
-    case 'important':
-      showImportantTasks();
-      break;
-    default:
-      break;
-  }
-
-  const index = findSelectedProject();
-  const project = allProjects[index].tasks;
-  showTasks(project);
+  showSelectedProjectTasks();
 }
 
 function closeEditTaskForm(task) {
@@ -317,14 +295,48 @@ function updateCompletedTask(event, task) {
   saveToLocalStorage();
 }
 
+function showSelectedProjectTasks() {
+  let project;
+  let index;
+
+  const selectedTile = document.querySelector('.selected');
+  switch (selectedTile.id) {
+    case 'all-tasks':
+      showAllTasks();
+      break;
+    case 'today':
+      showTodayTasks();
+      break;
+    case 'this-week':
+      showThisWeekTasks();
+      break;
+    case 'important':
+      showImportantTasks();
+      break;
+    default:
+      index = findSelectedProject();
+      project = allProjects[index].tasks;
+      showTasks(project);
+      break;
+  }
+}
+
+function findProjectByTaskId(taskID) {
+  for (const projectIndex in allProjects) {
+    const project = allProjects[projectIndex];
+    const task = project.tasks.find((task) => task.id === taskID);
+    if (task) {
+      return project;
+    }
+  }
+}
+
 function deleteTask(taskID) {
-  const index = findSelectedProject();
-  const project = allProjects[index].tasks;
+  const project = findProjectByTaskId(taskID);
+  const selectedTask = project.tasks.findIndex((task) => task.id === taskID);
+  project.tasks.splice(selectedTask, 1);
 
-  const selectedTask = project.findIndex((task) => task.id === taskID);
-
-  project.splice(selectedTask, 1);
-  showTasks(project);
+  showSelectedProjectTasks();
   saveToLocalStorage();
 }
 
