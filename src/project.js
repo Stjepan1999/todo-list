@@ -2,9 +2,9 @@ import { createEditIcons, showTasks, taskID, findSelectedProject } from './task'
 
 let projectID = parseInt(localStorage.getItem('projectID')) || 0;
 
-const allProjects = JSON.parse(localStorage.getItem('allProjects')) || [];
+export const allProjects = JSON.parse(localStorage.getItem('allProjects')) || [];
 
-function addEventListeners() {
+export function createProjectEvents() {
   const showFormButton = document.getElementById('button-new-project');
   showFormButton.addEventListener('click', () => showForm());
 
@@ -38,7 +38,7 @@ function createNewProject(event) {
   }
 }
 
-function saveToLocalStorage() {
+export function saveToLocalStorage() {
   localStorage.setItem('allProjects', JSON.stringify(allProjects));
   localStorage.setItem('projectID', projectID.toString());
   localStorage.setItem('taskID', taskID.toString());
@@ -243,5 +243,3 @@ function saveProjectTitle(event) {
   closeRenameForm();
   showProjects();
 }
-
-export { addEventListeners, allProjects, showProjects, saveToLocalStorage, selectProject };

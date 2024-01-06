@@ -1,7 +1,7 @@
-import { addEventListeners } from './project';
+import { createProjectEvents } from './project';
 import { createTaskEvents } from './task';
 import { showHomeSectionTile } from './homeSection';
 
-addEventListeners();
+createProjectEvents();
 createTaskEvents();
 showHomeSectionTile();

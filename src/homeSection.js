@@ -2,7 +2,7 @@ import { format, addDays } from 'date-fns';
 import { showTasks } from './task';
 import { allProjects } from './project';
 
-function showHomeSectionTile() {
+export function showHomeSectionTile() {
   const allTasks = document.getElementById('all-tasks');
   allTasks.addEventListener('click', (event) => showAllTasks(event));
 
@@ -20,7 +20,7 @@ function showHomeSectionTile() {
   allTasksTile.classList.add('selected');
 }
 
-function showAllTasks(event) {
+export function showAllTasks(event) {
   showTitle('All Tasks');
 
   // If task tile is clicked, because when page loads it gets selected class by default
@@ -39,7 +39,7 @@ function showAllTasks(event) {
   showTasks(allTasks);
 }
 
-function showTodayTasks(event) {
+export function showTodayTasks(event) {
   showTitle('Today');
   if (event) {
     selectHomeSectionTile(event);
@@ -60,7 +60,7 @@ function showTodayTasks(event) {
   showTasks(todayTasks);
 }
 
-function showThisWeekTasks(event) {
+export function showThisWeekTasks(event) {
   showTitle('Next 7 Days');
   if (event) {
     selectHomeSectionTile(event);
@@ -86,7 +86,7 @@ function showThisWeekTasks(event) {
   showTasks(thisWeekTasks);
 }
 
-function showImportantTasks(event) {
+export function showImportantTasks(event) {
   showTitle('Important');
   if (event) {
     selectHomeSectionTile(event);
@@ -123,5 +123,3 @@ function selectHomeSectionTile(event) {
   });
   tileDiv.classList.add('selected');
 }
-
-export { showHomeSectionTile, showAllTasks, showTitle, showTodayTasks, showThisWeekTasks, showImportantTasks };

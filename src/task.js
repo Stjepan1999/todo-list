@@ -1,9 +1,9 @@
 import { allProjects, saveToLocalStorage } from './project';
 import { showAllTasks, showTodayTasks, showImportantTasks, showThisWeekTasks } from './homeSection';
 
-let taskID = parseInt(localStorage.getItem('taskID')) || 0;
+export let taskID = parseInt(localStorage.getItem('taskID')) || 0;
 
-function createTaskEvents() {
+export function createTaskEvents() {
   const showFormButton = document.getElementById('button-new-task');
   showFormButton.addEventListener('click', () => showForm());
 
@@ -57,7 +57,7 @@ function closeForm() {
   document.getElementById('task-date').value = '';
 }
 
-function showTasks(project) {
+export function showTasks(project) {
   const taskContainer = document.querySelector('.tasks-container');
   taskContainer.innerHTML = '';
 
@@ -153,7 +153,7 @@ function createTaskElement(task) {
   return taskElement;
 }
 
-function findSelectedProject() {
+export function findSelectedProject() {
   const selected = document.querySelector('.selected');
   const projectID = Number(selected.dataset.id);
   const index = allProjects.findIndex((project) => project.id === projectID);
@@ -161,7 +161,7 @@ function findSelectedProject() {
 }
 
 // Create three dots for accesing editing options for task, and project
-function createEditIcons() {
+export function createEditIcons() {
   const editIcons = document.createElement('div');
   editIcons.classList.add('edit-icons');
   for (let j = 0; j < 3; j++) {
@@ -339,5 +339,3 @@ function deleteTask(taskID) {
   showSelectedProjectTasks();
   saveToLocalStorage();
 }
-
-export { createTaskEvents, showTasks, createEditIcons, taskID, findSelectedProject };
