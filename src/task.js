@@ -10,8 +10,8 @@ function createTaskEvents() {
   const closeFormButton = document.getElementById('button-close-task-form');
   closeFormButton.addEventListener('click', () => closeForm());
 
-  const addTaskButton = document.getElementById('button-add-task');
-  addTaskButton.addEventListener('click', createNewTask);
+  const taskForm = document.getElementById('task-form');
+  taskForm.addEventListener('submit', (event) => createNewTask(event));
 }
 
 function createTask(title, description, date) {
@@ -25,7 +25,9 @@ function createTask(title, description, date) {
   };
 }
 
-function createNewTask() {
+function createNewTask(event) {
+  event.preventDefault();
+
   const taskTitle = document.getElementById('task-title').value;
   const taskDescription = document.getElementById('task-description').value;
   const taskDate = document.getElementById('task-date').value;
@@ -42,12 +44,12 @@ function createNewTask() {
 }
 
 function showForm() {
-  const taskForm = document.querySelector('.add-task-form');
+  const taskForm = document.querySelector('.task-form-container');
   taskForm.classList.remove('hidden');
 }
 
 function closeForm() {
-  const taskForm = document.querySelector('.add-task-form');
+  const taskForm = document.querySelector('.task-form-container');
   taskForm.classList.add('hidden');
 
   document.getElementById('task-title').value = '';
@@ -198,7 +200,7 @@ function showEditOptions(editContainer) {
 
 // Duplicate form for creating task, but this is for editing
 function duplicateForm() {
-  const form = document.querySelector('.add-task-form');
+  const form = document.querySelector('.task-form-container');
   const editForm = form.cloneNode(true);
   editForm.classList.remove('hidden');
   editForm.classList.add('active');
@@ -285,7 +287,7 @@ function saveTask(task, selectedTaskElement) {
 }
 
 function closeEditTaskForm(task) {
-  const editForm = document.querySelector('.add-task-form.active');
+  const editForm = document.querySelector('.task-form-container.active');
   editForm.remove();
 
   task.classList.remove('hidden');
