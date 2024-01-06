@@ -38,21 +38,13 @@
         <div class="projects-container">
           <div class="projects-heading">Projects</div>
           <div class="projects-list"></div>
-          <div class="add-project-form hidden">
-            <form>
-              <input
-                type="text"
-                id="project-title"
-                class="project-title-input"
-                placeholder="Enter Project Name"
-                required
-              />
-              <div>
-                <button class="button button-primary" id="button-add-project">Add</button>
-                <button class="button button-secondary" id="button-close-project-form">Cancel</button>
-              </div>
-            </form>
-          </div>
+          <form id="project-form" class="project-form hidden">
+            <input type="text" id="project-title" class="project-title-input" placeholder="Enter Project Name" />
+            <div>
+              <button type="submit" class="button button-primary" id="button-add-project">Add</button>
+              <button class="button button-secondary" id="button-close-project-form">Cancel</button>
+            </div>
+          </form>
           <button class="button-wide button-project" id="button-new-project">
             <img src="./images/add-circle.svg" />Add Project
           </button>
@@ -62,8 +54,8 @@
       <div class="main">
         <div class="title">All Tasks</div>
         <div class="tasks-container"></div>
-        <div class="add-task-form hidden">
-          <form class="task-form">
+        <div class="task-form-container hidden">
+          <form class="task-form" id="task-form">
             <label for="task-title" class="task-form-label">Title: </label>
             <input type="text" id="task-title" class="task-form-input" placeholder="What to do?" required />
 
